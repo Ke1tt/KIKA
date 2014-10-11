@@ -1,5 +1,13 @@
 package ee.ut.math.tvt.kika;
 
-public class IntroUI {
-	//Intro of our team
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class IntroUI extends Application{
+	
+	 public void start(Stage primaryStage) {
+		 	primaryStage.setTitle("Intro of our team");
+		 	primaryStage.show();
+	    }
+	
 }
