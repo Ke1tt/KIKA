@@ -1,5 +1,3 @@
-
-
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="runIntro" default="run">
 	
@@ -9,6 +7,8 @@
 <property name="build.dir" location="bin" />
 <property name="dist.dir" location="dist" />
 <property name="docs.dir" location="docs" />
+<property name="Intro"  value="bin.ee.ut.math.tvt.kika.Intro"/>
+
 
 		
 <target name="versionNumber">
@@ -54,17 +54,27 @@ value="1" default="1" type="int" operation="+" pattern="0"/>
 	
 <!--Creates the deployable jar file  -->
 <target name="dist" depends="build" description="Create a jar for the HW project">
-<jar jarfile="KIKA.jar" includes="*.class" basedir="bin"/>
+	<mkdir dir="dist"/>
+	<jar destfile="dist/KIKA.jar" includes="*.class" basedir="src">
+	<manifest>
+	     <attribute name="Intro" value="${Intro}"/>
+    </manifest>
+	</jar>
 </target>
-	
+
 	
 <target name="run" depends="build, dist, docs">
-	<exec executable="ee.ut.math.tvt.kika.Intro" />
-	    <description>Main target</description>
+	<!--<java fork="true" failonerror="no" classname="bin.ee.ut.math.tvt.kika.Intro" >
+	
+	      <arg line="KIKA"/>
+	</java>-->
+<java jar="dist/KIKA.jar" fork="true"/>
 </target>
 	
-<target name="jrun">
+<target name="jrun" depends="dist">
 <echo message="Starting JRun server ${jrun.server.name}" /> 
-
+    <java jar="dist/KIKA.jar" fork="true"/>
 </target>
+
+
 </project>
