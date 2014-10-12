@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="runIntro" default="run">
+
+	<target name="run" description="Run the Intro">
+			<java classname="ee.ut.math.tvt.kika.Intro" />
+		</target>
+</project>
