@@ -1,8 +1,19 @@
 package ee.ut.math.tvt.kika;
 
-public class Intro {
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class Intro extends Application{
+	
+	public void start(Stage primaryStage) {
+		primaryStage.setTitle("Intro of our team");
+		primaryStage.setScene(IntroUI.graafika());
+		primaryStage.show();
+		
+	}
+	
 	public static void main(String[] args) {
-		//exlipse jookseb kokku mul sellega... 
-		//IntroUI.launch(arg0);
+		launch(args);
 	}
 }
+;

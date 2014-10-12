@@ -1,6 +1,5 @@
 package ee.ut.math.tvt.kika;
 
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -8,10 +7,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class IntroUI extends Application{
+public class IntroUI{
 	
-	 public void start(Stage primaryStage) {
-		 	
+		static Scene graafika(){
 		 BorderPane bp = new BorderPane();
 		 
 		 Label intro = new Label("Team name: KIKA" + "\n"
@@ -31,9 +29,7 @@ public class IntroUI extends Application{
 		 
 		 Scene sc = new Scene(bp,400,200);
 		 
-		 primaryStage.setTitle("Intro of our team");
-		 primaryStage.setScene(sc);
-		 primaryStage.show();
-	    }
+		 return sc;
+		}
 	
 }
