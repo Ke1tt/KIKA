@@ -53,13 +53,10 @@ value="1" default="1" type="int" operation="+" pattern="0"/>
 </target>
 	
 <!--Creates the deployable jar file  -->
-<target name="dist" depends="build">
-	    <jar destfile="${dist.dir}\ee.ut.math.tvt.KIKAjar" basedir="${build.dir}">
-	      <manifest>
-	        <attribute name="Main-Class" value="test.Main" />
-	      </manifest>
-	    </jar>
+<target name="dist" depends="build" description="Create a jar for the HW project">
+<jar jarfile="KIKA.jar" includes="*.class" basedir="bin"/>
 </target>
+	
 	
 <target name="run" depends="build, dist, docs">
 	<exec executable="ee.ut.math.tvt.kika.Intro" />
