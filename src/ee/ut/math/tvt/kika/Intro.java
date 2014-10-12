@@ -2,12 +2,17 @@ package ee.ut.math.tvt.kika;
 
 import java.io.IOException;
 
+
+import org.apache.log4j.Logger;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Intro extends Application{
+	private static final Logger log = Logger.getLogger(Intro.class);
 	
 	public void start(Stage primaryStage) throws IOException{
+		log.info("Intro started");
 		primaryStage.setTitle("Intro of our team");
 		primaryStage.setScene(IntroUI.graafika());
 		primaryStage.show();
@@ -16,6 +21,8 @@ public class Intro extends Application{
 	
 	public static void main(String[] args) {
 		launch(args);
+	
+		
 	}
 }
 ;

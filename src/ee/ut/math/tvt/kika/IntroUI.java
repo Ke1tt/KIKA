@@ -5,14 +5,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
+
+//siia tuleb try ja catch asjad teha ja catchi sisse panna log.error(e.getmessage())
 public class IntroUI{
+	private static final Logger log = Logger.getLogger(Intro.class);
 	
+	public IntroUI(){
+		log.info("IntroUI started");
+	}
 		public String getVersionProps() throws IOException {
 			String result = "";
 			Properties prop = new Properties();
