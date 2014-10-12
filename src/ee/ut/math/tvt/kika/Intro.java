@@ -2,6 +2,6 @@ package ee.ut.math.tvt.kika;
 
 public class Intro {
 	public static void main(String[] args) {
-		
+		IntroUI.launch(args);
 	}
 }
