@@ -1,18 +1,73 @@
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="runIntro" default="run">
-
-	<target name="run" description="Run the Intro">
-			<java classname="ee.ut.math.tvt.kika.Intro" />
-		</target>
 	
-	<target name="versionNumber">
-	            <propertyfile file="resources/version.properties">
-	            <entry key="build.revision.number"
-	            value="1" default="1" type="int" operation="+" pattern="0"/>
-	            </propertyfile>
-	    	<property file="resources/version.properties"/>
-	    	<propertyfile file="resources/version.properties">
-	    		<entry key="build.number" value="${build.major.number}.${build.minor.number}.${build.revision.number}"/>
-	    	</propertyfile>
-	    </target>
+<!-- Sets variables which can later be used. -->
+<!-- The value of a property is accessed via ${} -->
+<property name="src.dir" location="src" />
+<property name="build.dir" location="bin" />
+<property name="dist.dir" location="dist" />
+<property name="docs.dir" location="docs" />
+
+		
+<target name="versionNumber">
+<propertyfile file="resources/version.properties">
+<entry key="build.revision.number"
+value="1" default="1" type="int" operation="+" pattern="0"/>
+</propertyfile>
+<property file="resources/version.properties"/>
+<propertyfile file="resources/version.properties">
+<entry key="build.number" value="${build.major.number}.${build.minor.number}.${build.revision.number}"/>
+</propertyfile>
+</target>
+	
+<!-- Deletes the existing build, docs and dist directory-->
+<target name="clean">
+<delete dir="${build.dir}" />
+<delete dir="${docs.dir}" />
+<delete dir="${dist.dir}" />
+</target>
+	
+<!-- Creates the  build, docs and dist directory-->
+<target name="makedir">
+<mkdir dir="${build.dir}" />
+<mkdir dir="${docs.dir}" />
+<mkdir dir="${dist.dir}" />
+</target>
+	
+<target name="build" description="Run the Intro" depends="clean, makedir">
+<java classname="ee.ut.math.tvt.kika.Intro" />
+<javac srcdir="${src.dir}" destdir="${build.dir}">
+</javac>
+</target>
+	
+<!-- Creates Javadoc -->
+<target name="docs" depends="build">
+<javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}">
+	   <!-- Define which files / directory should get included, we include all -->
+	       <fileset dir="${src.dir}">
+	                <include name="**" />
+	           </fileset>
+	    </javadoc>
+</target>
+	
+<!--Creates the deployable jar file  -->
+<target name="dist" depends="build">
+	    <jar destfile="${dist.dir}\de.vogella.build.test.ant.jar" basedir="${build.dir}">
+	      <manifest>
+	        <attribute name="Main-Class" value="test.Main" />
+	      </manifest>
+	    </jar>
+</target>
+	
+<target name="run" depends="build, dist, docs">
+	<exec executable="ee.ut.math.tvt.kika.Intro" />
+	    <description>Main target</description>
+</target>
+	
+<target name="jrun">
+<echo message="Starting JRun server ${jrun.server.name}" /> 
+
+</target>
 </project>
