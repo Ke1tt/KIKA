@@ -1,7 +1,6 @@
 package ee.ut.math.tvt.kika;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -28,6 +27,26 @@ public class IntroUI{
 			
 			result = brn + "." + bmjn + "." + bman;
 			
+			istream.close();
+			return result;
+		}
+		
+		public String getAppProps() throws IOException {
+			String result = "";
+			Properties prop = new Properties();
+			String propFileName = "application.properties";
+			
+			InputStream istream = new FileInputStream(propFileName);
+			prop.load(istream);
+			
+			String tname = prop.getProperty("team.name");
+			String tleader = prop.getProperty("team.leader");
+			String tleaderemail = prop.getProperty("team.leader.email");
+			String tmembers= prop.getProperty("team.members");
+			
+			result = "Team name: " + tname + "\n" + "Team leader: " + tleader + "\n" +
+			"Team leader email: " + tleaderemail + "\n" + "Team members: " + tmembers;
+			istream.close();
 			return result;
 		}
 		
@@ -35,17 +54,15 @@ public class IntroUI{
 
 		 BorderPane bp = new BorderPane();
 		 
-		 Label intro = new Label("Team name: KIKA" + "\n"
-		 		+ "Team leader: Anastassia Ivanova" + "\n"
-				 + "Team leader email: Nasty94@hot.ee" + "\n"
-		 		+ "Team members: Keit Toom, Ingrid Kaasik, Kelian Kaio, Anastassia Ivanova");
+		 IntroUI appprops = new IntroUI();
+		 Label intro = new Label(appprops.getAppProps());
 		 
 		 Image img = new Image("file:logo.png");
 		 Label logo = new Label();
 		 logo.setGraphic(new ImageView(img));
 		 
 		 IntroUI verprops = new IntroUI();
-		 Label version = new Label("Software version number:" + verprops.getVersionProps());
+		 Label version = new Label("Software version number: " + verprops.getVersionProps());
 		 
 		 bp.setTop(intro);
 		 bp.setCenter(logo);
