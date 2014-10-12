@@ -54,7 +54,7 @@ value="1" default="1" type="int" operation="+" pattern="0"/>
 	
 <!--Creates the deployable jar file  -->
 <target name="dist" depends="build">
-	    <jar destfile="${dist.dir}\de.vogella.build.test.ant.jar" basedir="${build.dir}">
+	    <jar destfile="${dist.dir}\ee.ut.math.tvt.KIKAjar" basedir="${build.dir}">
 	      <manifest>
 	        <attribute name="Main-Class" value="test.Main" />
 	      </manifest>
