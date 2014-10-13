@@ -13,37 +13,40 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
-
-//siia tuleb try ja catch asjad teha ja catchi sisse panna log.error(e.getmessage())
 public class IntroUI{
 	private static final Logger log = Logger.getLogger(Intro.class);
 	
 	public IntroUI(){
 		log.info("IntroUI started");
 	}
-		public String getVersionProps() throws IOException {
+		public String getVersionProps() {
 			String result = "";
 			Properties prop = new Properties();
 			String propFileName= "version.properties";
 			
-			InputStream istream = new FileInputStream(propFileName);
-			prop.load(istream);
-		
-			String brn = prop.getProperty("build.revision.number");
-			String bmjn = prop.getProperty("build.minor.number");
-			String bman = prop.getProperty("build.major.number");
+			try { 
+				InputStream istream = new FileInputStream(propFileName);
+				prop.load(istream);
 			
-			result = brn + "." + bmjn + "." + bman;
-			
-			istream.close();
+				String brn = prop.getProperty("build.revision.number");
+				String bmjn = prop.getProperty("build.minor.number");
+				String bman = prop.getProperty("build.major.number");
+				
+				result = brn + "." + bmjn + "." + bman;
+				
+				istream.close();
+			} catch (IOException e){
+				log.error(e.getMessage());
+			}
 			return result;
 		}
 		
-		public String getAppProps() throws IOException {
+		public String getAppProps() {
 			String result = "";
 			Properties prop = new Properties();
 			String propFileName = "application.properties";
 			
+			try {
 			InputStream istream = new FileInputStream(propFileName);
 			prop.load(istream);
 			
@@ -55,10 +58,13 @@ public class IntroUI{
 			result = "Team name: " + tname + "\n" + "Team leader: " + tleader + "\n" +
 			"Team leader email: " + tleaderemail + "\n" + "Team members: " + tmembers;
 			istream.close();
+			} catch (IOException e){
+				log.error(e.getMessage());
+			}
 			return result;
 		}
 		
-		static Scene graafika() throws IOException{
+		static Scene graafika() {
 
 		 BorderPane bp = new BorderPane();
 		 
