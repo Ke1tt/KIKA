@@ -3,6 +3,8 @@ package ee.ut.math.tvt.salessystem.ui.panels;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.ui.model.SalesSystemTableModel;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -11,8 +13,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.NoSuchElementException;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,11 +34,23 @@ public class PurchaseItemPanel extends JPanel {
     // Text field on the dialogPane
     private JTextField barCodeField;
     private JTextField quantityField;
-    private JTextField nameField;
+    private JComboBox<String> nameField;
     private JTextField priceField;
 
     private JButton addItemButton;
 
+    // adds products names to drop down field
+	private String[] populateComboBox(){
+		int rows = model.getWarehouseTableModel().getRowCount();
+    	String[] result = new String[rows];
+    	for(int i=0;i<rows;i++){
+    		result[i] = (model.getWarehouseTableModel().getValueAt(i, 1).toString());
+    		
+    	}
+    	return result;
+    }
+    
+    
     // Warehouse model
     private SalesSystemModel model;
 
@@ -82,26 +98,28 @@ public class PurchaseItemPanel extends JPanel {
         panel.setBorder(BorderFactory.createTitledBorder("Product"));
 
         // Initialize the textfields
+
         barCodeField = new JTextField();
         quantityField = new JTextField("1");
-        nameField = new JTextField();
+        nameField = new JComboBox<>(populateComboBox());
         priceField = new JTextField();
 
         // Fill the dialog fields if the bar code text field loses focus
-        barCodeField.addFocusListener(new FocusListener() {
-            public void focusGained(FocusEvent e) {
-            }
 
-            public void focusLost(FocusEvent e) {
-                fillDialogFields();
-            }
+        nameField.addActionListener(new ActionListener(){
+        	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fillDialogFields();
+			}
         });
-
+        
         nameField.setEditable(false);
+        barCodeField.setEditable(false);
         priceField.setEditable(false);
 
         // == Add components to the panel
-
+        
         // - bar code
         panel.add(new JLabel("Bar code:"));
         panel.add(barCodeField);
@@ -136,7 +154,7 @@ public class PurchaseItemPanel extends JPanel {
         StockItem stockItem = getStockItemByBarcode();
 
         if (stockItem != null) {
-            nameField.setText(stockItem.getName());
+            barCodeField.setText(stockItem.getId().toString());
             String priceString = String.valueOf(stockItem.getPrice());
             priceField.setText(priceString);
         } else {
@@ -148,8 +166,8 @@ public class PurchaseItemPanel extends JPanel {
     // to the barCode textfield.
     private StockItem getStockItemByBarcode() {
         try {
-            int code = Integer.parseInt(barCodeField.getText());
-            return model.getWarehouseTableModel().getItemById(code);
+            String code = nameField.getSelectedItem().toString();
+            return model.getWarehouseTableModel().getItemByName(code);
         } catch (NumberFormatException ex) {
             return null;
         } catch (NoSuchElementException ex) {
@@ -181,7 +199,7 @@ public class PurchaseItemPanel extends JPanel {
     @Override
     public void setEnabled(boolean enabled) {
         this.addItemButton.setEnabled(enabled);
-        this.barCodeField.setEnabled(enabled);
+        this.nameField.setEnabled(enabled);
         this.quantityField.setEnabled(enabled);
     }
 
@@ -191,7 +209,6 @@ public class PurchaseItemPanel extends JPanel {
     public void reset() {
         barCodeField.setText("");
         quantityField.setText("1");
-        nameField.setText("");
         priceField.setText("");
     }
 
