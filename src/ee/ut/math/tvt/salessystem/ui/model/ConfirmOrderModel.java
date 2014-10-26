@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,14 +25,16 @@ public class ConfirmOrderModel extends JFrame {
 		JLabel totalSumLabel = new JLabel("Total sum: ");
 		JFormattedTextField paidMoney = new JFormattedTextField();
 		JLabel paidMoneyLabel = new JLabel("Paid Money: ");
-		//pmst sellega vist peab tegema
-		//paidMoney.addPropertyChangeListener());
-		double paidMoneyValue = Double.parseDouble(paidMoney.getText());
-		JLabel changeAmount = new JLabel(String.valueOf(total - paidMoneyValue));
+		JLabel changeAmount = new JLabel();
 		JLabel changeAmountLabel = new JLabel("Change: ");
+		JButton calculateChange = new JButton("Calculate change");
 		
-		
-		
+		calculateChange.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				double paidMoneyValue=Double.parseDouble(paidMoney.getText());
+				changeAmount.setText(Double.toString(paidMoneyValue-total));
+			}
+		});
 		
 		panel.add(totalSumLabel);
 		panel.add(totalSum);
@@ -39,6 +42,7 @@ public class ConfirmOrderModel extends JFrame {
 		panel.add(paidMoney);
 		panel.add(changeAmountLabel);
 		panel.add(changeAmount);
+		panel.add(calculateChange);
 		
 		
 		panel.setSize(300, 200);

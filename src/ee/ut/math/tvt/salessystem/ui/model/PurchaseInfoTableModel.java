@@ -93,8 +93,8 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 		return null;
 	}
 	
+	//checks the warehouse
 	public boolean checkQuantity(StockItem item, int quantity){
-		//should check the quantity
 		if(item.getQuantity() < quantity){
 			log.debug("There aren't that many " + item.getName() + "'s in warehouse. ");
 			return false;
