@@ -107,7 +107,7 @@ public class PurchaseTab {
     JButton b = new JButton("Confirm");
     b.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        submitPurchaseButtonClicked();
+        confirmButtonClicked();
       }
     });
     b.setEnabled(false);
@@ -162,6 +162,9 @@ public class PurchaseTab {
     }
   }
 
+  protected void confirmButtonClicked(){
+	  
+  }
 
   /** Event handler for the <code>submit purchase</code> event. */
   protected void submitPurchaseButtonClicked() {
@@ -177,7 +180,6 @@ public class PurchaseTab {
       log.error(e1.getMessage());
     }
   }
-
 
 
   /* === Helper methods that bring the whole purchase-tab to a certain state
