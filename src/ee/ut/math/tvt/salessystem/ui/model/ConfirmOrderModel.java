@@ -24,6 +24,7 @@ public class ConfirmOrderModel extends JFrame {
 		JLabel totalSum = new JLabel(String.valueOf(total));
 		JLabel totalSumLabel = new JLabel("Total sum: ");
 		JFormattedTextField paidMoney = new JFormattedTextField();
+		paidMoney.setValue(new Double(0.0));
 		JLabel paidMoneyLabel = new JLabel("Paid Money: ");
 		JLabel changeAmount = new JLabel();
 		JLabel changeAmountLabel = new JLabel("Change: ");
