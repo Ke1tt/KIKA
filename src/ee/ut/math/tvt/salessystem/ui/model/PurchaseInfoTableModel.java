@@ -3,6 +3,7 @@ package ee.ut.math.tvt.salessystem.ui.model;
 import org.apache.log4j.Logger;
 
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
+import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.SalesSystemUI;
 
 /**
@@ -48,7 +49,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 			buffer.append(item.getName() + "\t");
 			buffer.append(item.getPrice() + "\t");
 			buffer.append(item.getQuantity() + "\t");
-			//buffer.append(item.getSum() + "\t");
+			buffer.append(item.getSum() + "\t");
 			buffer.append("\n");
 		}
 
@@ -58,14 +59,38 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
     /**
      * Add new StockItem to table.
      */
+	
     public void addItem(final SoldItem item) {
         /**
          * XXX In case such stockItem already exists increase the quantity of the
          * existing stock.
          */
         
-        rows.add(item);
-        log.debug("Added " + item.getName() + " quantity of " + item.getQuantity());
+    	SoldItem existingItem = itemInShoppingCart(item.getStockItem().getId());
+    	
+    	if(existingItem != null){
+    		existingItem.setQuantity(existingItem.getQuantity() + item.getQuantity());
+    		log.debug("Increased " + item.getName() + " quantity by " + item.getQuantity());
+    	}
+    	else {
+    		rows.add(item);
+    		log.debug("Added " + item.getName() + " quantity of " + item.getQuantity());
+    	}
         fireTableDataChanged();
     }
+    
+	//looks if there is a same item already in Shopping Cart
+	public SoldItem itemInShoppingCart (long StockItemId){
+		for (SoldItem item : getTableRows()){
+			if (item.getStockItem().getId().equals(StockItemId)){
+				return item;
+			}
+		}
+		return null;
+	}
+	
+	public void checkQuantity(StockItem item, int quantity){
+		//should check the quantity
+		
+	}
 }
