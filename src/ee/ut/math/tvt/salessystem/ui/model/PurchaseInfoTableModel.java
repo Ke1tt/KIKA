@@ -89,8 +89,12 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 		return null;
 	}
 	
-	public void checkQuantity(StockItem item, int quantity){
+	public void checkQuantity(StockItem item, SoldItem itemS){
 		//should check the quantity
+		if(item.getQuantity() < itemS.getQuantity()){
+			log.debug("There aren't that many" + item.getName() + "s in warehouse. ");
+		}
+			
 		
 	}
 }
