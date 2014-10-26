@@ -1,5 +1,7 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
+import org.apache.log4j.Logger;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +16,7 @@ import javax.swing.JTextField;
 
 public class ConfirmOrderModel extends JFrame {
 	
-	
+	private static final Logger log = Logger.getLogger(PurchaseInfoTableModel.class);
 	
 	public ConfirmOrderModel(double total) {
 		
@@ -33,7 +35,11 @@ public class ConfirmOrderModel extends JFrame {
 		calculateChange.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				double paidMoneyValue=Double.parseDouble(paidMoney.getText());
-				changeAmount.setText(Double.toString(paidMoneyValue-total));
+				if (paidMoneyValue >= total) {
+					changeAmount.setText(Double.toString(paidMoneyValue-total));
+				} else {
+					log.debug("Not enough cash.");
+				}
 			}
 		});
 		
