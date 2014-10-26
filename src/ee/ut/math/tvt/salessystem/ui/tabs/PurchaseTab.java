@@ -168,7 +168,7 @@ public class PurchaseTab {
   }
 
   protected void confirmButtonClicked(){
-	  ConfirmOrderModel confirmOrderModel = new ConfirmOrderModel();
+	  ConfirmOrderModel confirmOrderModel = new ConfirmOrderModel(model.getCurrentPurchaseTableModel().totalSum());
 	  confirmOrderModel.setVisible(true);
 	  confirmOrderModel.setAlwaysOnTop(true);
 	  

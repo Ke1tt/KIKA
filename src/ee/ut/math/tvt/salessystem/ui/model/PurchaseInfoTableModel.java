@@ -102,4 +102,12 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 		return true;
 		
 	}
+	
+	public double totalSum(){
+		double total = 0;
+		for (SoldItem item: getTableRows()){
+			total += item.getSum();
+		}
+		return total;
+	}
 }
