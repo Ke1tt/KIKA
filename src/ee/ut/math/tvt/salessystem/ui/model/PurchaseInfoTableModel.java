@@ -13,9 +13,11 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 
 	private static final Logger log = Logger.getLogger(PurchaseInfoTableModel.class);
 	
+	//keeps track of total sum
+	private double totalsum = 0;
+	
 	public PurchaseInfoTableModel() {
-		//siia lisada "Sum"
-		super(new String[] { "Id", "Name", "Price", "Quantity"});
+		super(new String[] { "Id", "Name", "Price", "Quantity", "Sum"});
 	}
 
 	@Override
@@ -29,6 +31,8 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 			return item.getPrice();
 		case 3:
 			return item.getQuantity();
+		case 4:
+			return totalsum = totalsum + item.getSum();
 		}
 		throw new IllegalArgumentException("Column index out of range");
 	}
