@@ -2,6 +2,8 @@ package ee.ut.math.tvt.salessystem.ui.model;
 
 import org.apache.log4j.Logger;
 
+import ee.ut.math.tvt.salessystem.ui.tabs.PurchaseTab;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +33,8 @@ public class ConfirmOrderModel extends JFrame {
 		JLabel changeAmount = new JLabel();
 		JLabel changeAmountLabel = new JLabel("Change: ");
 		JButton calculateChange = new JButton("Calculate change");
+		JButton accept = new JButton("Accept");
+		JButton cancel = new JButton("Cancel");
 		
 		calculateChange.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
@@ -50,13 +54,23 @@ public class ConfirmOrderModel extends JFrame {
 		panel.add(changeAmountLabel);
 		panel.add(changeAmount);
 		panel.add(calculateChange);
+		panel.add(accept);
+		panel.add(cancel);
 		
 		
-		panel.setSize(300, 200);
+		panel.setSize(400, 300);
 		setLocationRelativeTo(null);
 		setTitle("Order Confirmation. ");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		add(panel);
 		pack();
+		
+		cancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				log.debug("Cancelled paying");
+				setVisible(false);
+			}
+		});
+		
 	}
 }
