@@ -14,6 +14,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 	private static final Logger log = Logger.getLogger(PurchaseInfoTableModel.class);
 	
 	public PurchaseInfoTableModel() {
+		//siia lisada "Sum"
 		super(new String[] { "Id", "Name", "Price", "Quantity"});
 	}
 
@@ -45,7 +46,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 			buffer.append(item.getName() + "\t");
 			buffer.append(item.getPrice() + "\t");
 			buffer.append(item.getQuantity() + "\t");
-			buffer.append(item.getSum() + "\t");
+			//buffer.append(item.getSum() + "\t");
 			buffer.append("\n");
 		}
 
