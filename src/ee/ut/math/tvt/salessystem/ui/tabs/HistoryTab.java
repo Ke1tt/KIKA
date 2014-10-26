@@ -1,7 +1,10 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
@@ -16,7 +19,10 @@ public class HistoryTab {
     
     public Component draw() {
         JPanel panel = new JPanel();
-        // TODO - Sales history tabel
+        
+        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel.setLayout(new GridBagLayout());
+        
         return panel;
     }
 }
