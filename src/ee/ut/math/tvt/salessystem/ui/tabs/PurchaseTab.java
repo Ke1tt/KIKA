@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
@@ -38,7 +39,6 @@ public class PurchaseTab {
   private PurchaseItemPanel purchasePane;
 
   private SalesSystemModel model;
-
 
   public PurchaseTab(SalesDomainController controller,
       SalesSystemModel model)
@@ -165,11 +165,12 @@ public class PurchaseTab {
   }
 
   protected void confirmButtonClicked(){
-	  ConfirmOrderModel confirmOrderModel = new ConfirmOrderModel(model.getCurrentPurchaseTableModel().totalSum());
+	  ConfirmOrderModel confirmOrderModel = new ConfirmOrderModel(model.getCurrentPurchaseTableModel().totalSum(), this);
 	  confirmOrderModel.setVisible(true);
 	  confirmOrderModel.setAlwaysOnTop(true);
 	  
   }
+  
 
   /** Event handler for the <code>submit purchase</code> event. */
   public void submitPurchaseButtonClicked() {
