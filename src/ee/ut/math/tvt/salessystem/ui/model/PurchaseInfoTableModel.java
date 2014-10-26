@@ -69,12 +69,16 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
     	SoldItem existingItem = itemInShoppingCart(item.getStockItem().getId());
     	
     	if(existingItem != null){
-    		existingItem.setQuantity(existingItem.getQuantity() + item.getQuantity());
-    		log.debug("Increased " + item.getName() + " quantity by " + item.getQuantity());
+    		if (checkQuantity(item.getStockItem(), existingItem.getQuantity() + item.getQuantity())){
+    			existingItem.setQuantity(existingItem.getQuantity() + item.getQuantity());
+        		log.debug("Increased " + item.getName() + " quantity by " + item.getQuantity());
+    		}
     	}
     	else {
-    		rows.add(item);
-    		log.debug("Added " + item.getName() + " quantity of " + item.getQuantity());
+    		if(checkQuantity(item.getStockItem(), item.getQuantity())){
+    			rows.add(item);
+    			log.debug("Added " + item.getName() + " quantity of " + item.getQuantity());
+    		}
     	}
         fireTableDataChanged();
     }
@@ -89,12 +93,13 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 		return null;
 	}
 	
-	public void checkQuantity(StockItem item, SoldItem itemS){
+	public boolean checkQuantity(StockItem item, int quantity){
 		//should check the quantity
-		if(item.getQuantity() < itemS.getQuantity()){
-			log.debug("There aren't that many" + item.getName() + "s in warehouse. ");
+		if(item.getQuantity() < quantity){
+			log.debug("There aren't that many " + item.getName() + "'s in warehouse. ");
+			return false;
 		}
-			
+		return true;
 		
 	}
 }
