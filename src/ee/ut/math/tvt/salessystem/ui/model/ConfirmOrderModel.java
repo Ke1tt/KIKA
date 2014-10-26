@@ -20,6 +20,8 @@ public class ConfirmOrderModel extends JFrame {
 	
 	private static final Logger log = Logger.getLogger(PurchaseInfoTableModel.class);
 	
+	private static PurchaseTab purchase;
+	
 	public ConfirmOrderModel(double total) {
 		
 		JPanel panel = new JPanel();
@@ -68,6 +70,13 @@ public class ConfirmOrderModel extends JFrame {
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				log.debug("Cancelled paying");
+				setVisible(false);
+			}
+		});
+		
+		accept.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				purchase.submitPurchaseButtonClicked();
 				setVisible(false);
 			}
 		});

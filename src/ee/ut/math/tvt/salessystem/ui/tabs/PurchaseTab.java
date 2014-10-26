@@ -172,7 +172,7 @@ public class PurchaseTab {
   }
 
   /** Event handler for the <code>submit purchase</code> event. */
-  protected void submitPurchaseButtonClicked() {
+  public void submitPurchaseButtonClicked() {
     log.info("Sale complete");
     try {
       log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
