@@ -67,7 +67,6 @@ public class ConfirmOrderModel extends JFrame {
 		panel.add(cancel);
 		
 		
-		panel.setSize(400, 300);
 		setLocationRelativeTo(null);
 		setTitle("Order Confirmation. ");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
