@@ -22,8 +22,6 @@ import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
  */
 public class HistoryTab {
     
-    // TODO - implement!
-
 	  private static final Logger log = Logger.getLogger(PurchaseTab.class);
 
 	  private SalesSystemModel model;
