@@ -2,12 +2,17 @@ package ee.ut.math.tvt.salessystem.ui.model;
 
 import org.apache.log4j.Logger;
 
+import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
+import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.tabs.PurchaseTab;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -21,7 +26,9 @@ public class ConfirmOrderModel extends JFrame {
 	
 	private static final Logger log = Logger.getLogger(PurchaseInfoTableModel.class);
 	
-	public ConfirmOrderModel(double total, PurchaseTab purchase) {
+	private SalesSystemModel model;
+	
+	public ConfirmOrderModel(double total, ArrayList<SoldItem> solditems, PurchaseTab purchase) {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,2));
@@ -68,7 +75,20 @@ public class ConfirmOrderModel extends JFrame {
 			
 		accept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				purchase.submitPurchaseButtonClicked();
+				
+				//salvestab orderi
+				//kuupäev
+				Calendar rightNow = Calendar.getInstance();
+				SimpleDateFormat sdf1 = new SimpleDateFormat("dd MMM yyyy");
+				String date = sdf1.format(rightNow.getTime());
+				
+				//kellaaeg
+				SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+				String time = sdf2.format(rightNow.getTime());
+				
+				HistoryItem item = new HistoryItem(date, time, total, solditems);
+				
+				purchase.submitPurchaseButtonClicked(item);
 				setVisible(false);
 			}
 		});

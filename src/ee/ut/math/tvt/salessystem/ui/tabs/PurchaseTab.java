@@ -1,5 +1,6 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
+import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.ConfirmOrderModel;
@@ -165,7 +166,8 @@ public class PurchaseTab {
   }
 
   protected void confirmButtonClicked(){
-	  ConfirmOrderModel confirmOrderModel = new ConfirmOrderModel(model.getCurrentPurchaseTableModel().totalSum(), this);
+	  ConfirmOrderModel confirmOrderModel = new ConfirmOrderModel(model.getCurrentPurchaseTableModel().totalSum(), 
+			  model.getCurrentPurchaseTableModel().soldItems(), this);
 	  confirmOrderModel.setVisible(true);
 	  confirmOrderModel.setAlwaysOnTop(true);
 	  
@@ -173,13 +175,14 @@ public class PurchaseTab {
   
 
   /** Event handler for the <code>submit purchase</code> event. */
-  public void submitPurchaseButtonClicked() {
+  public void submitPurchaseButtonClicked(HistoryItem item) {
     log.info("Sale complete");
     try {
       log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
       domainController.submitCurrentPurchase(
           model.getCurrentPurchaseTableModel().getTableRows()
       );
+      model.getHistoryTableModel().addItem(item);
       endSale();
       model.getCurrentPurchaseTableModel().clear();
     } catch (VerificationFailedException e1) {
