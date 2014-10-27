@@ -19,11 +19,12 @@ public class AddItemsWarehouseModel extends JFrame{
 		id.setValue(new Double(0.0));
 		JLabel nameLabel = new JLabel("Add product's name: ");
 		JTextField name = new JTextField();
-		JLabel priceLabel = new JLabel();
+		JLabel priceLabel = new JLabel("Add product's price: ");
 		JFormattedTextField price = new JFormattedTextField();
 		price.setValue(new Double(0.0));
-		JLabel quantityLabel = new JLabel();
+		JLabel quantityLabel = new JLabel("Add product's quantity: ");
 		JFormattedTextField quantity = new JFormattedTextField();
+		quantity.setValue(new Integer(0));
 		
 		panel.add(idLabel);
 		panel.add(id);
