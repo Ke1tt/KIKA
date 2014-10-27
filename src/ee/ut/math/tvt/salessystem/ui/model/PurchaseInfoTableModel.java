@@ -1,5 +1,7 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
+import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
@@ -109,5 +111,13 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 			total += item.getSum();
 		}
 		return total;
+	}
+	
+	public ArrayList<SoldItem> soldItems(){
+		ArrayList solditems = new ArrayList<SoldItem>();
+		for(SoldItem item: getTableRows()){
+			solditems.add(item);
+		}
+		return solditems;
 	}
 }

@@ -1,5 +1,6 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
+import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.ConfirmOrderModel;
@@ -15,6 +16,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
@@ -38,7 +40,6 @@ public class PurchaseTab {
   private PurchaseItemPanel purchasePane;
 
   private SalesSystemModel model;
-
 
   public PurchaseTab(SalesDomainController controller,
       SalesSystemModel model)
@@ -70,7 +71,21 @@ public class PurchaseTab {
   }
 
 
-
+  private void lockTab() 
+  {
+	  cancelPurchase.setEnabled(false);
+	  submitPurchase.setEnabled(false);
+	  newPurchase.setEnabled(false);
+	  purchasePane.setEnabled(false);
+  }
+  
+  public void unlockTab() 
+  {
+	  purchasePane.setEnabled(true);
+	  submitPurchase.setEnabled(true);
+	  cancelPurchase.setEnabled(true);
+	  newPurchase.setEnabled(false);
+  }
 
   // The purchase menu. Contains buttons "New purchase", "Submit", "Cancel".
   private Component getPurchaseMenuPane() {
@@ -165,20 +180,24 @@ public class PurchaseTab {
   }
 
   protected void confirmButtonClicked(){
-	  ConfirmOrderModel confirmOrderModel = new ConfirmOrderModel(model.getCurrentPurchaseTableModel().totalSum());
+	  ConfirmOrderModel confirmOrderModel = new ConfirmOrderModel(model.getCurrentPurchaseTableModel().totalSum(), 
+			  model.getCurrentPurchaseTableModel().soldItems(), this);
 	  confirmOrderModel.setVisible(true);
 	  confirmOrderModel.setAlwaysOnTop(true);
+	  lockTab();
 	  
   }
+  
 
   /** Event handler for the <code>submit purchase</code> event. */
-  public void submitPurchaseButtonClicked() {
+  public void submitPurchaseButtonClicked(HistoryItem item) {
     log.info("Sale complete");
     try {
       log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
       domainController.submitCurrentPurchase(
           model.getCurrentPurchaseTableModel().getTableRows()
       );
+      model.getHistoryTableModel().addItem(item);
       endSale();
       model.getCurrentPurchaseTableModel().clear();
     } catch (VerificationFailedException e1) {
