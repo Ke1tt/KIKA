@@ -15,31 +15,22 @@ public class AddItemsWarehouseModel extends JFrame{
 	 private JButton cancelItem;
 	 
 	 protected void cancelButtonClicked(JPanel panel){
-	    	panel.setVisible(false);
-	    	System.exit(0);
-	  	  
+	    	setVisible(false);
 	    }
 
 	public AddItemsWarehouseModel(){
 		
-	    
-	   
-	    
 		final JPanel panel = new JPanel();
 		
 		panel.setLayout(new GridLayout(0,2));
 		
 		cancelItem = new JButton("Cancel");
+		
 	    cancelItem.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				cancelButtonClicked(panel);
-				
-			}
-	    	
-
-			
+			}	
 	    });
 		
 		JLabel idLabel = new JLabel("Add product's bar code: ");
