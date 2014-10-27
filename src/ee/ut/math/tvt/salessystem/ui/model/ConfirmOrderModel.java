@@ -49,6 +49,7 @@ public class ConfirmOrderModel extends JFrame {
 				double paidMoneyValue=Double.parseDouble(paidMoney.getText());
 				if (paidMoneyValue >= total) {
 					changeAmount.setText(Double.toString(paidMoneyValue-total));
+					panel.add(accept);
 				} else {
 					log.debug("Not enough cash.");
 				}
@@ -62,7 +63,7 @@ public class ConfirmOrderModel extends JFrame {
 		panel.add(changeAmountLabel);
 		panel.add(changeAmount);
 		panel.add(calculateChange);
-		panel.add(accept);
+		
 		panel.add(cancel);
 		
 		
@@ -70,6 +71,7 @@ public class ConfirmOrderModel extends JFrame {
 		setLocationRelativeTo(null);
 		setTitle("Order Confirmation. ");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		add(panel);
 		pack();
 			
@@ -77,7 +79,7 @@ public class ConfirmOrderModel extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				
 				//salvestab orderi
-				//kuupäev
+				//kuupaev
 				Calendar rightNow = Calendar.getInstance();
 				SimpleDateFormat sdf1 = new SimpleDateFormat("dd MMM yyyy");
 				String date = sdf1.format(rightNow.getTime());
