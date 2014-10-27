@@ -71,7 +71,21 @@ public class PurchaseTab {
   }
 
 
-
+  private void lockTab() 
+  {
+	  cancelPurchase.setEnabled(false);
+	  submitPurchase.setEnabled(false);
+	  newPurchase.setEnabled(false);
+	  purchasePane.setEnabled(false);
+  }
+  
+  public void unlockTab() 
+  {
+	  purchasePane.setEnabled(true);
+	  submitPurchase.setEnabled(true);
+	  cancelPurchase.setEnabled(true);
+	  newPurchase.setEnabled(false);
+  }
 
   // The purchase menu. Contains buttons "New purchase", "Submit", "Cancel".
   private Component getPurchaseMenuPane() {
@@ -170,6 +184,7 @@ public class PurchaseTab {
 			  model.getCurrentPurchaseTableModel().soldItems(), this);
 	  confirmOrderModel.setVisible(true);
 	  confirmOrderModel.setAlwaysOnTop(true);
+	  lockTab();
 	  
   }
   
