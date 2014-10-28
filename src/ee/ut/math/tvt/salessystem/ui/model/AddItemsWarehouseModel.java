@@ -3,8 +3,6 @@ package ee.ut.math.tvt.salessystem.ui.model;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -14,15 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
-import ee.ut.math.tvt.salessystem.domain.controller.impl.*;
-import ee.ut.math.tvt.salessystem.ui.tabs.*;
-import ee.ut.math.tvt.salessystem.ui.model.*;
 
 public class AddItemsWarehouseModel extends JFrame{
 	 private JButton cancelItem;
 	 private JButton confirmItem;
 	 private SalesSystemModel model;
-	 
 	 
 	 protected void cancelButtonClicked(){
 	    	setVisible(false);

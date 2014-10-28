@@ -3,7 +3,6 @@ package ee.ut.math.tvt.salessystem.ui.tabs;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 

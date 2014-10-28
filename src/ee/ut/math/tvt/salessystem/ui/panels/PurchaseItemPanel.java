@@ -3,15 +3,12 @@ package ee.ut.math.tvt.salessystem.ui.panels;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
-import ee.ut.math.tvt.salessystem.ui.model.SalesSystemTableModel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.NoSuchElementException;
 
 import javax.swing.BorderFactory;
@@ -44,12 +41,10 @@ public class PurchaseItemPanel extends JPanel {
 		int rows = model.getWarehouseTableModel().getRowCount();
     	String[] result = new String[rows];
     	for(int i=0;i<rows;i++){
-    		result[i] = (model.getWarehouseTableModel().getValueAt(i, 1).toString());
-    		
+    		result[i] = (model.getWarehouseTableModel().getValueAt(i, 1).toString());		
     	}
     	return result;
     }
-    
     
     // Warehouse model
     private SalesSystemModel model;

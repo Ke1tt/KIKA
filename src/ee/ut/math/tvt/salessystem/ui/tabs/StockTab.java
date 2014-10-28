@@ -1,7 +1,6 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
 import ee.ut.math.tvt.salessystem.ui.model.AddItemsWarehouseModel;
-import ee.ut.math.tvt.salessystem.ui.model.ConfirmOrderModel;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 
 import java.awt.Color;

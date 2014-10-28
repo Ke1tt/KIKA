@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
-import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.tabs.PurchaseTab;
 
 import java.awt.GridLayout;
