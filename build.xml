@@ -97,7 +97,7 @@
 
 	<target name="git_commit" description="ask commit comment, make commit to repository, push changes to GitHub">
 		<input message="Enter comment: " addproperty="comment" />
-		<echo message="Commiting all changes with message ${commit-message}" />
+		<echo message="Commiting all changes with message ${comment}" />
 		
 		<input message="Please enter user name:" addproperty="username" />
 		<input message="Please enter password:" addproperty="password" />
@@ -120,6 +120,7 @@
 	<target name="git_tag" description ="create tag, synchronize with GitHub">
 		<input message="Enter tag name:" addproperty="tag"/>
 		<input message="Enter comment:" addproperty="tagcomment"/>
+		<echo message="Commiting all changes with message ''${comment}'' and tag ''${tagcomment}''" />
 		<exec executable ="git">
 			<arg value = "tag" />
 		  	<arg value = "-a" />
