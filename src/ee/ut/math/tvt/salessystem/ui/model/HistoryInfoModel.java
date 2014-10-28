@@ -26,7 +26,6 @@ public class HistoryInfoModel extends SalesSystemTableModel<SoldItem>{
 	}
 	
 	public void addItem(final SoldItem item){
-		clear();
 		rows.add(item);
 		fireTableDataChanged();
 	}

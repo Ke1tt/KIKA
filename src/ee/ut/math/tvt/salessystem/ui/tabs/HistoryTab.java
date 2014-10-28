@@ -52,7 +52,7 @@ public class HistoryTab {
     			if(!notempty.isSelectionEmpty()){
     				
     				//Find item that was clicked
-    				
+    				model.getHistoryInfoModel().clear();
     				HistoryItem item = model.getHistoryTableModel().getRow(notempty.getMinSelectionIndex());
     				ArrayList<SoldItem> items = item.getSoldItems();
     				for(SoldItem sold: items){
