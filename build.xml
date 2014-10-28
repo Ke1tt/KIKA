@@ -95,15 +95,42 @@
 	</target>
 
 
-	<target name="git_commit" depends="build" description="ask commit comment, make commit to repository, push changes to GitHub">
-		<java >
-
-		</java>	
+	<target name="git_commit" description="ask commit comment, make commit to repository, push changes to GitHub">
+		<input message="Enter comment: " addproperty="comment" />
+		<echo message="Commiting all changes with message ${commit-message}" />
+		
+		<input message="Please enter user name:" addproperty="username" />
+		<input message="Please enter password:" addproperty="password" />
+		
+		<exec executable="git" inputstring="${basedir}">
+	  		<arg value = "add" />
+	  		<arg value = "-A" />
+		</exec>
+		<exec executable="git">
+			<arg value = "commit" />
+		 	<arg value = "-m" />
+			<arg value = "${comment}" />
+	  	</exec>
+		<exec executable="git">
+			<arg value = "push" />
+			<arg value = "https://${username}:${password}@github.com/PirnPurgis/kodutöö_3" />
+		</exec>
 	</target>
 	
-	<target name="git_tag" depends="build" description ="create tag, synchronize with GitHub">
-		<java>
-		</java>
+	<target name="git_tag" description ="create tag, synchronize with GitHub">
+		<input message="Enter tag name:" addproperty="tag"/>
+		<input message="Enter comment:" addproperty="tagcomment"/>
+		<exec executable ="git">
+			<arg value = "tag" />
+		  	<arg value = "-a" />
+			<arg value = "${tag}" />
+			<arg value = "-m" />
+			<arg value = "${tagcomment}" />
+		</exec>
+		<exec executable="git">
+			<arg value = "push" />
+			<arg value = "--tags" />
+		</exec>
 	</target>
 	
 </project>
