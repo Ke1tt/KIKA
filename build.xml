@@ -102,7 +102,6 @@
 		</java>
 	</target>
 
-
 	<target name="git_commit" description="ask commit comment, make commit to repository, push changes to GitHub">
 		<input message="Enter comment: " addproperty="comment" />
 		<echo message="Commiting all changes with message ${comment}" />
@@ -128,7 +127,7 @@
 	<target name="git_tag" description ="create tag, synchronize with GitHub">
 		<input message="Enter tag name:" addproperty="tag"/>
 		<input message="Enter comment:" addproperty="tagcomment"/>
-		<echo message="Commiting all changes with message ''${comment}'' and tag ''${tagcomment}''" />
+		<echo message="Commiting all changes with message ''${tagcomment}'' and tag ''${tag}''" />
 		<exec executable ="git">
 			<arg value = "tag" />
 		  	<arg value = "-a" />
@@ -141,5 +140,6 @@
 			<arg value = "--tags" />
 		</exec>
 	</target>
+
 	
 </project>
