@@ -24,24 +24,17 @@ public class AddItemsWarehouseModel extends JFrame{
 	 private SalesSystemModel model;
 	 
 	 
-	 
 	 protected void cancelButtonClicked(){
 	    	setVisible(false);
 	  	  
 	    }
-	 protected void confirmButtonClicked(JFormattedTextField id,  JTextField price,
-			 JFormattedTextField name, JFormattedTextField quantity){
-		 final StockItem item = new StockItem();
-		 item.setId(Long.valueOf(Integer.parseInt(id.getText())));
-		 item.setName(name.getText().toString());
-		 item.setPrice(Double.valueOf(price.getText()));
-		 item.setPrice(Integer.parseInt(quantity.getText()));
-		 
-		 SalesDomainControllerImpl  impl = new SalesDomainControllerImpl();
-		 impl.loadWarehouseState().add(item);
-		 StockTab tab = new StockTab(model);
-		 tab.draw();
-		 
+	 protected void confirmButtonClicked(JFormattedTextField id,  JTextField name,
+			 JFormattedTextField price, JFormattedTextField quantity){
+		 Long StockId = (Long.valueOf(Integer.parseInt(id.getText())));
+		 String StockName = (name.getText().toString());
+		 Double StockPrice = (Double.valueOf(price.getText()));
+		 Integer StockQuantity = (Integer.parseInt(quantity.getText()));
+		 StockItem item = new StockItem(StockId, StockName, StockPrice, StockQuantity);
 		 
 	 }
 
