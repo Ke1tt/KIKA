@@ -81,7 +81,7 @@ public class StockTab {
   }
  
   protected void addButtonClicked(){
-	  AddItemsWarehouseModel addItemsWarehouseModel = new AddItemsWarehouseModel();
+	  AddItemsWarehouseModel addItemsWarehouseModel = new AddItemsWarehouseModel(model.getWarehouseTableModel());
 	  addItemsWarehouseModel.setVisible(true);
 	  addItemsWarehouseModel.setAlwaysOnTop(true);
   }

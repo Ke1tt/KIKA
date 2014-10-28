@@ -28,7 +28,7 @@ public class AddItemsWarehouseModel extends JFrame{
 	    	setVisible(false);
 	  	  
 	    }
-	 protected void confirmButtonClicked(JFormattedTextField id,  JTextField name,
+	 protected StockItem confirmButtonClicked(JFormattedTextField id,  JTextField name,
 			 JFormattedTextField price, JFormattedTextField quantity){
 		 Long StockId = (Long.valueOf(Integer.parseInt(id.getText())));
 		 String StockName = (name.getText().toString());
@@ -36,9 +36,10 @@ public class AddItemsWarehouseModel extends JFrame{
 		 Integer StockQuantity = (Integer.parseInt(quantity.getText()));
 		 StockItem item = new StockItem(StockId, StockName, StockPrice, StockQuantity);
 		 
+		 return item;
 	 }
 
-	public AddItemsWarehouseModel(){
+	public AddItemsWarehouseModel(StockTableModel stock){
 		
 	    
 	   
@@ -80,7 +81,9 @@ public class AddItemsWarehouseModel extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					
-					confirmButtonClicked(id, name, price, quantity);
+					StockItem item = confirmButtonClicked(id, name, price, quantity);
+					stock.addItem(item);
+					setVisible(false);
 					
 				}
 		    	
