@@ -1,6 +1,8 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
 import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
+import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
+import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.ConfirmOrderModel;
@@ -13,6 +15,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -197,6 +200,11 @@ public class PurchaseTab {
           model.getCurrentPurchaseTableModel().getTableRows()
       );
       model.getHistoryTableModel().addItem(item);
+      ArrayList<SoldItem> solditems = item.getSoldItems();
+      for(SoldItem sold: solditems){
+    	  StockItem stock = sold.getStockItem();
+    	  stock.setQuantity(stock.getQuantity()-sold.getQuantity());
+      }
       endSale();
       model.getCurrentPurchaseTableModel().clear();
     } catch (VerificationFailedException e1) {
