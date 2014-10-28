@@ -6,7 +6,8 @@ import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
 
 public class HistoryTableModel extends SalesSystemTableModel<HistoryItem> {
 	private static final Logger log = Logger.getLogger(StockTableModel.class);
-
+	private SalesSystemModel model;
+	
 	public HistoryTableModel() {
 		super(new String[] {"Date of the order", "Time of the order", "Total order price"});
 	}

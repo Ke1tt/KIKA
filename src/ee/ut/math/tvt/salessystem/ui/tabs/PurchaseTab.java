@@ -127,7 +127,6 @@ public class PurchaseTab {
     b.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
     	confirmButtonClicked();
-    	//submitPurchaseButtonClicked();
       }
     });
     b.setEnabled(false);

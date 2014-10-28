@@ -81,5 +81,9 @@ public abstract class SalesSystemTableModel<T extends DisplayableItem> extends
         rows.addAll(data);
     }
     
+    public T getRow(int index) {
+    	return getTableRows().get(index);
+    }
+    
     
 }

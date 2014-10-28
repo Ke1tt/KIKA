@@ -4,16 +4,19 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-import org.apache.log4j.Logger;
-
-import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
+import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 
 /**
@@ -21,8 +24,8 @@ import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
  * labelled "History" in the menu).
  */
 public class HistoryTab {
-    
-	  private static final Logger log = Logger.getLogger(PurchaseTab.class);
+    	
+	  //private static final Logger log = Logger.getLogger(PurchaseTab.class);
 
 	  private SalesSystemModel model;
 	  
@@ -34,12 +37,37 @@ public class HistoryTab {
         JPanel panel = new JPanel();
         
         panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        panel.setLayout(new GridBagLayout());
-        
+        panel.setLayout(new GridLayout(2,1));
+      	  
         JTable table = new JTable(model.getHistoryTableModel());
         JScrollPane scrollPane = new JScrollPane(table);
         
+        ListSelectionModel leftclick = table.getSelectionModel();
+        
+        leftclick.addListSelectionListener(new ListSelectionListener(){
+    		public void valueChanged(ListSelectionEvent event){
+    			if(event.getValueIsAdjusting())
+    				return;
+    			ListSelectionModel notempty = (ListSelectionModel) event.getSource();
+    			if(!notempty.isSelectionEmpty()){
+    				
+    				//Find item that was clicked
+    				model.getHistoryInfoModel().clear();
+    				HistoryItem item = model.getHistoryTableModel().getRow(notempty.getMinSelectionIndex());
+    				ArrayList<SoldItem> items = item.getSoldItems();
+    				for(SoldItem sold: items){
+    					model.getHistoryInfoModel().addItem(sold);
+    				}
+    			}
+    		}
+    	});
+        
+        JTable table2 = new JTable(model.getHistoryInfoModel());
+        JScrollPane scrollPane2 = new JScrollPane(table2);
+        
         panel.add(scrollPane, getBacketScrollPaneConstraints());
+        panel.add(scrollPane2, getBacketScrollPaneConstraints());
+        
         return panel;
     }
 
@@ -52,4 +80,5 @@ public class HistoryTab {
 
         return gc;
     }
+    
 }
