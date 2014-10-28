@@ -1,26 +1,33 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
-import java.awt.GridLayout;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTable;
+import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 
-public class HistoryInfoModel extends JFrame{
+public class HistoryInfoModel extends SalesSystemTableModel<SoldItem>{
 
-	private SalesSystemModel model;
+	public HistoryInfoModel() {
+		super(new String[] {"Name", "Price", "Quantity", "Sum"});
+	}
+
+	@Override
+	protected Object getColumnValue(SoldItem item, int columnIndex) {
+		switch (columnIndex) {
+		case 0:
+			return item.getName();
+		case 1:
+			return item.getPrice();
+		case 2:
+			return item.getQuantity();
+		case 3:
+			return item.getSum();
+		}
+		throw new IllegalArgumentException("Column index out of range");
+		
+	}
 	
-	public HistoryInfoModel(){
-		
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0,2));
-		
-		JTable table = new JTable();
-		
-		setLocationRelativeTo(null);
-		setTitle("Purchase Information");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		add(panel);
+	public void addItem(final SoldItem item){
+		clear();
+		rows.add(item);
+		fireTableDataChanged();
 	}
 }

@@ -8,11 +8,11 @@ public class HistoryItem implements Cloneable, DisplayableItem {
 	private double price;
 	private String date;
 	private String time;
-	private ArrayList soldItems;
+	private ArrayList<SoldItem> soldItems;
 	
 	
 	public HistoryItem(String date, String time, double price,
-			ArrayList soldItems) {
+			ArrayList<SoldItem> soldItems) {
 		super();
 		this.price = price;
 		this.date = date;
@@ -45,7 +45,7 @@ public class HistoryItem implements Cloneable, DisplayableItem {
 		return time;
 	}
 
-	public ArrayList getSoldItems() {
+	public ArrayList<SoldItem> getSoldItems() {
 		return soldItems;
 	}
 	
