@@ -102,16 +102,5 @@
 		</java>
 	</target>
 
-
-	<target name="git_commit" depends="build" description="ask commit comment, make commit to repository, push changes to GitHub">
-		<java >
-
-		</java>	
-	</target>
-	
-	<target name="git_tag" depends="build" description ="create tag, synchronize with GitHub">
-		<java>
-		</java>
-	</target>
 	
 </project>
