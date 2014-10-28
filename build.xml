@@ -113,7 +113,7 @@
 	  	</exec>
 		<exec executable="git">
 			<arg value = "push" />
-			<arg value = "https://${username}:${password}@github.com/PirnPurgis/kodutöö_3" />
+			<arg value = "https://${username}:${password}@github.com/PirnPurgis/KIKA" />
 		</exec>
 	</target>
 	
