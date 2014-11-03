@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="runIntro" default="run">
+
+	<!-- Sets variables which can later be used. -->
+	<!-- The value of a property is accessed via ${} -->
+	<property name="src.dir" location="src" />
+	<property name="build.dir" location="${basedir}/build" />
+	<property name="dist.dir" location="dist" />
+	<property name="docs.dir" location="docs" />
+	<property name="Intro" value="bin.ee.ut.math.tvt.kika.Intro" />
+
+	<path id="compile.classpath">
+		<fileset dir="./lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="run.classpath">
+		<pathelement location="${build.dir}" />
+		<fileset dir="./lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<java
+          classname="ee.ut.math.tvt.kika.Intro"
+            classpathref="run.classpath"
+            fork="yes">
+          <jvmarg value="-Xdebug" />
+          <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044" />
+        </java>
+
+	<target name="versionNumber">
+		<propertyfile file="resources/version.properties">
+			<entry key="build.revision.number" value="1" default="1" type="int" operation="+" pattern="0" />
+		</propertyfile>
+		<property file="resources/version.properties" />
+		<propertyfile file="resources/version.properties">
+			<entry key="build.number" value="${build.major.number}.${build.minor.number}.${build.revision.number}" />
+		</propertyfile>
+	</target>
+
+	<!-- Deletes the existing build, docs and dist directory-->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${docs.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<!-- Creates the  build, docs and dist directory-->
+	<target name="makedir">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${docs.dir}" />
+		<mkdir dir="${dist.dir}" />
+	</target>
+
+	<target name="build" description="Run the Intro" depends="clean, makedir">
+		<javac srcdir="${src.dir}" destdir="${build.dir}">
+			<classpath refid="compile.classpath" />
+		</javac>
+		<copy todir="${build.dir}">
+			<fileset dir="." />
+		</copy>
+	</target>
+
+	<!-- Creates Javadoc -->
+	<target name="docs" depends="build">
+		<javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}">
+			<!-- Define which files / directory should get included, we include all -->
+			<fileset dir="${src.dir}">
+				<include name="**" />
+			</fileset>
+		</javadoc>
+	</target>
+
+	<!--Creates the deployable jar file  -->
+	<target name="dist" depends="build" description="Create a jar for the HW project">
+		<mkdir dir="dist" />
+		<jar destfile="dist/KIKA.jar" includes="*.class" basedir="src">
+			<manifest>
+				<attribute name="Intro" value="${Intro}" />
+			</manifest>
+		</jar>
+	</target>
+
+
+	<target name="run" depends="build">
+		<java fork="true" failonerror="no" classname="ee.ut.math.tvt.kika.Intro" classpathref="run.classpath">
+
+			<arg line="KIKA" />
+		</java>
+	</target>
+
+	<target name="jrun" depends="dist">
+		<echo message="Starting JRun server ${jrun.server.name}" />
+		<java jar="dist/KIKA.jar" fork="true" />
+	</target>
+
+	<target name="runc" depends="build" description="Run the application (console)">
+		<java classname="ee.ut.math.tvt.kika.Intro" classpathref="test.classpath" fork="yes">
+			<arg value="console" />
+		</java>
+	</target>
+
+	<target name="git_commit" description="ask commit comment, make commit to repository, push changes to GitHub">
+		<input message="Enter comment: " addproperty="comment" />
+		<echo message="Commiting all changes with message ${comment}" />
+		
+		<input message="Please enter user name:" addproperty="username" />
+		<input message="Please enter password:" addproperty="password" />
+		
+		<exec executable="git" inputstring="${basedir}">
+	  		<arg value = "add" />
+	  		<arg value = "-A" />
+		</exec>
+		<exec executable="git">
+			<arg value = "commit" />
+		 	<arg value = "-m" />
+			<arg value = "${comment}" />
+	  	</exec>
+		<exec executable="git">
+			<arg value = "push" />
+			<arg value = "https://${username}:${password}@github.com/PirnPurgis/KIKA" />
+		</exec>
+	</target>
+	
+	<target name="git_tag" description ="create tag, synchronize with GitHub">
+		<input message="Enter tag name:" addproperty="tag"/>
+		<input message="Enter comment:" addproperty="tagcomment"/>
+		<echo message="Commiting all changes with message ''${tagcomment}'' and tag ''${tag}''" />
+		<exec executable ="git">
+			<arg value = "tag" />
+		  	<arg value = "-a" />
+			<arg value = "${tag}" />
+			<arg value = "-m" />
+			<arg value = "${tagcomment}" />
+		</exec>
+		<exec executable="git">
+			<arg value = "push" />
+			<arg value = "--tags" />
+		</exec>
+	</target>
+
+	
+</project>
