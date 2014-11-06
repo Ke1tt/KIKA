@@ -17,10 +17,22 @@
         <property name="lib.hibernate.dir" value="${lib.dir}/hibernate"/>
 
 	<path id="compile.classpath">
-		<fileset dir="./lib">
-			<include name="*.jar" />
-		</fileset>
+		<fileset dir="${lib.hibernate.dir}">
+                   <include name="*.jar"/>
+                </fileset>
 	</path>
+	
+	<path id="run.classpath">
+            <pathelement location="${build.classes.dir}"/>
+             <!-- configuration -->
+            <fileset dir="${lib.dir}">
+                 <include name="*.jar"/>
+            </fileset>
+
+            <fileset dir="${lib.hibernate.dir}">
+             <include name="*.jar"/>
+            </fileset>
+        </path>
 
 	<path id="run.classpath">
 		<pathelement location="${build.dir}" />
