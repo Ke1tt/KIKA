@@ -9,40 +9,36 @@
 	<property name="docs.dir" location="docs" />
 	<property name="Intro" value="bin.ee.ut.math.tvt.kika.Intro" />
 	
-	<property name="lib.dir" value="${basedir}/lib"/>
-
-     <!-- database variables -->
-	<property name="data.dir"	value="${basedir}/data"/>
-    <property name="db.file"	value="${data.dir}/POSdb"/>
-	<property name="db.alias"	value="POS"/>
-	<property name="db.url" 	value="jdbc:hsqldb:hsql://localhost/POS"/>
-	<property name="lib.hibernate.dir"   value="${lib.dir}/hibernate"/>
-
+	<!-- database variables -->
+        <property name="data.dir"	value="${basedir}/data"/>
+        <property name="db.file"	value="${data.dir}/POSdb"/>
+        <property name="db.alias"	value="POS"/>
+        <property name="db.url" value="jdbc:hsqldb:hsql://localhost/POS"/>
+        <property name="lib.hibernate.dir" value="${lib.dir}/hibernate"/>
 
 	<path id="compile.classpath">
-	    <fileset dir="${lib.hibernate.dir}">
-		      <include name="*.jar"/>
-		 </fileset>
+		<fileset dir="${lib.hibernate.dir}">
+                   <include name="*.jar"/>
+                </fileset>
 	</path>
+	
+	<path id="run.classpath">
+            <pathelement location="${build.classes.dir}"/>
+             <!-- configuration -->
+            <fileset dir="${lib.dir}">
+                 <include name="*.jar"/>
+            </fileset>
+
+            <fileset dir="${lib.hibernate.dir}">
+             <include name="*.jar"/>
+            </fileset>
+        </path>
 
 	<path id="run.classpath">
 		<pathelement location="${build.dir}" />
 		<fileset dir="./lib">
 			<include name="*.jar" />
 		</fileset>
-	</path>
-	
-	<path id="run.classpath">
-	        <pathelement location="${build.classes.dir}"/>
-	        <!-- configuration -->
-	        <pathelement location="${conf.dir}"/>
-	        <fileset dir="${lib.dir}">
-	            <include name="*.jar"/>
-	        </fileset>
-
-	        <fileset dir="${lib.hibernate.dir}">
-	             <include name="*.jar"/>
-	        </fileset>
 	</path>
 	
 	<java
@@ -165,33 +161,32 @@
 	</target>
 	
 	<target name="dbmanager" description="Start the HSQLDB manager">
-	        <java
-	            classname="org.hsqldb.util.DatabaseManagerSwing"
-	            classpathref="run.classpath"
-	            fork="yes"
-	        >
-	            <arg line="--user sa --url ${db.url}" />
-	        </java>
-	    </target>
+	<java
+             classname="org.hsqldb.util.DatabaseManagerSwing"
+             classpathref="run.classpath"
+             fork="yes"
+        >
+        <arg line="--user sa --url ${db.url}" />
+        </java>
+        </target>
+        
+        <target name="startdb" description="Start the HSQLDB with the default params">
+        <java
+        classname="org.hsqldb.Server"
+        classpathref="run.classpath"
+        fork="yes"
+        >
+        <arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" />
+        </java>
+        </target>
+        
+        <!-- Stop the HSQL DB server -->
+        <target name="stopdb" description="Stop HSQL database server">
+             <sql driver="${db.driver}" url="${db.url}" userid="${db.user}" password="${db.pw}" onerror="continue">
+                <classpath refid="lib.class.path" />
+                    SHUTDOWN;
+             </sql>
+        </target>
 
-	    <target name="startdb" description="Start the HSQLDB with the default params">
-	        <java
-	            classname="org.hsqldb.Server"
-	            classpathref="run.classpath"
-	            fork="yes"
-	        >
-	            <arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" /> 
-	        </java>
-	</target>
-
-	    <!-- Stop the HSQL DB server -->
-	    <target name="stopdb" description="Stop HSQL database server">
-	        <sql driver="${db.driver}" url="${db.url}" userid="${db.user}" password="${db.pw}" onerror="continue">
-	            <classpath refid="lib.class.path" />
-	            SHUTDOWN;
-	        </sql>
-	    </target>
-	
-	        	
 	
 </project>
