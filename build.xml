@@ -10,6 +10,7 @@
 	<property name="Intro" value="bin.ee.ut.math.tvt.kika.Intro" />
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<property name="lib.dir" value="${basedir}/lib"/>
 
      <!-- database variables -->
@@ -25,6 +26,8 @@
 		      <include name="*.jar"/>
 		 </fileset>
 =======
+=======
+>>>>>>> 121beed9c7a6563a607eb936cd7af87ccf7ec657
 	<!-- database variables -->
         <property name="data.dir"	value="${basedir}/data"/>
         <property name="db.file"	value="${data.dir}/POSdb"/>
@@ -36,7 +39,10 @@
 		<fileset dir="${lib.hibernate.dir}">
                    <include name="*.jar"/>
                 </fileset>
+<<<<<<< HEAD
 >>>>>>> c3b62b6af418c40c96cd3da6c4f5475df6c80857
+=======
+>>>>>>> 121beed9c7a6563a607eb936cd7af87ccf7ec657
 	</path>
 	
 	<path id="run.classpath">
@@ -56,19 +62,6 @@
 		<fileset dir="./lib">
 			<include name="*.jar" />
 		</fileset>
-	</path>
-	
-	<path id="run.classpath">
-	        <pathelement location="${build.classes.dir}"/>
-	        <!-- configuration -->
-	        <pathelement location="${conf.dir}"/>
-	        <fileset dir="${lib.dir}">
-	            <include name="*.jar"/>
-	        </fileset>
-
-	        <fileset dir="${lib.hibernate.dir}">
-	             <include name="*.jar"/>
-	        </fileset>
 	</path>
 	
 	<java
@@ -192,6 +185,7 @@
 	
 	<target name="dbmanager" description="Start the HSQLDB manager">
 <<<<<<< HEAD
+<<<<<<< HEAD
 	        <java
 	            classname="org.hsqldb.util.DatabaseManagerSwing"
 	            classpathref="run.classpath"
@@ -211,6 +205,8 @@
 	        </java>
 	</target>
 =======
+=======
+>>>>>>> 121beed9c7a6563a607eb936cd7af87ccf7ec657
 	<java
              classname="org.hsqldb.util.DatabaseManagerSwing"
              classpathref="run.classpath"
@@ -237,6 +233,7 @@
                     SHUTDOWN;
              </sql>
         </target>
+<<<<<<< HEAD
 >>>>>>> c3b62b6af418c40c96cd3da6c4f5475df6c80857
 
 	    <!-- Stop the HSQL DB server -->
@@ -248,5 +245,8 @@
 	    </target>
 	
 	        	
+=======
+
+>>>>>>> 121beed9c7a6563a607eb936cd7af87ccf7ec657
 	
 </project>
