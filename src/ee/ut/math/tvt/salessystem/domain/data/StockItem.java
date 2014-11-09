@@ -135,6 +135,4 @@ public class StockItem implements Cloneable, DisplayableItem {
         return item;
     }
     
-    
-		
 }

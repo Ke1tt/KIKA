@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 
 public class AddItemsWarehouseModel extends JFrame{
