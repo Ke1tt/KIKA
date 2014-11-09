@@ -2,6 +2,11 @@ package ee.ut.math.tvt.salessystem.domain.data;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "HISTORY ITEM")
 public class HistoryItem implements Cloneable, DisplayableItem {
 
 	private double price;

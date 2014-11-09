@@ -5,11 +5,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.apache.log4j.Logger;
 /**
 * Utility class that makes sure we has a single open hibernate session.
 */
 public class HibernateUtil {
-	//private static final Logger log = Logger.getLogger(HibernateUtil.class);
+	private static final Logger log = Logger.getLogger(HibernateUtil.class);
 	private static ServiceRegistry serviceRegistry;
 	public static final SessionFactory sessionFactory;
 	static {
@@ -21,7 +22,7 @@ public class HibernateUtil {
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 			} catch (Throwable ex) {
 				// Make sure you log the exception, as it might be swallowed
-				//log.error("Initial SessionFactory creation failed.", ex);
+				log.error("Initial SessionFactory creation failed.", ex);
 				throw new ExceptionInInitializerError(ex);
 				}
 		}
