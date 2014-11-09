@@ -2,6 +2,8 @@ package ee.ut.math.tvt.salessystem.domain.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -13,12 +15,13 @@ import javax.persistence.Table;
 @Table(name = "SOLD ITEM")
 public class SoldItem implements Cloneable, DisplayableItem {
 
-	@Column(name = "ID")
+	@Id
     private Long id;
-	@Column(name = "Stock Item")
+	
+	@OneToOne
     private StockItem stockItem;
     
-	@Column(name = "Name")
+	
     private String name;
 	@Column(name = "Quantity")
     private Integer quantity;

@@ -2,6 +2,7 @@ package ee.ut.math.tvt.salessystem.domain.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -13,8 +14,9 @@ public interface DisplayableItem {
 	/**
 	 * Id of entity.
 	 */
-	
+	@Id
+	@Column(name = "Id", nullable = false)
 	public Long getId();
-	
+	@Column(name = "Name")
 	public String getName();
 }

@@ -1,6 +1,8 @@
 package ee.ut.math.tvt.salessystem.domain.data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -10,14 +12,18 @@ import javax.persistence.Table;
 @Table(name = "STOCK ITEM")
 public class StockItem implements Cloneable, DisplayableItem {
 	
+	@Id
     private Long id;
 
     private String name;
 
+    @Column(name = "Price")
     private double price;
 
+    @Column(name = "Description")
     private String description;
     
+    @Column(name = "Quantity")
     private int quantity;
 
     /**
