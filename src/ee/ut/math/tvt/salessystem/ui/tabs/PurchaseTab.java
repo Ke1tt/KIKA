@@ -84,9 +84,9 @@ public class PurchaseTab {
   public void unlockTab() 
   {
 	  purchasePane.setEnabled(true);
-	  submitPurchase.setEnabled(true);
-	  cancelPurchase.setEnabled(true);
-	  newPurchase.setEnabled(false);
+	  submitPurchase.setEnabled(false);
+	  cancelPurchase.setEnabled(false);
+	  newPurchase.setEnabled(true);
   }
 
   // The purchase menu. Contains buttons "New purchase", "Submit", "Cancel".
@@ -219,7 +219,6 @@ public class PurchaseTab {
   // switch UI to the state that allows to proceed with the purchase
   private void startNewSale() {
     purchasePane.reset();
-
     purchasePane.setEnabled(true);
     submitPurchase.setEnabled(true);
     cancelPurchase.setEnabled(true);

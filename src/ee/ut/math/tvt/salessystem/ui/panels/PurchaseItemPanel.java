@@ -3,6 +3,7 @@ package ee.ut.math.tvt.salessystem.ui.panels;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.NoSuchElementException;
 
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -20,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.TableModelListener;
 
 /**
  * Purchase pane + shopping cart tabel UI.
@@ -100,9 +103,8 @@ public class PurchaseItemPanel extends JPanel {
         priceField = new JTextField();
 
         // Fill the dialog fields if the bar code text field loses focus
-
+        
         nameField.addActionListener(new ActionListener(){
-        	
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fillDialogFields();
@@ -140,10 +142,22 @@ public class PurchaseItemPanel extends JPanel {
         });
 
         panel.add(addItemButton);
+        
 
         return panel;
     }
 
+    //when a product has added to warehouse
+    public void updateComboBox(){
+    	String[] newItems = populateComboBox();
+    	int combosize = nameField.getItemCount();
+    	int newsize = newItems.length;
+    	for(int i = combosize; i < newsize; i ++){
+    		nameField.addItem(newItems[i]);
+    	}
+    		
+    }
+    
     // Fill dialog with data from the "database".
     public void fillDialogFields() {
         StockItem stockItem = getStockItemByBarcode();
@@ -202,6 +216,7 @@ public class PurchaseItemPanel extends JPanel {
      * Reset dialog fields.
      */
     public void reset() {
+    	updateComboBox();
         barCodeField.setText("");
         quantityField.setText("1");
         priceField.setText("");
