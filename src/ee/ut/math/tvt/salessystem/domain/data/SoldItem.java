@@ -20,6 +20,10 @@ public class SoldItem implements Cloneable, DisplayableItem {
     private Long id;
 	
 	@ManyToOne
+	@JoinColumn(name = "Sale_id", nullable = false)
+	private HistoryItem historyItem;
+	
+	@ManyToOne
     @JoinColumn(name="STOCKITEM_ID", nullable=false)
     private StockItem stockItem;
     

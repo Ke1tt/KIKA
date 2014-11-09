@@ -4,15 +4,22 @@ import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "HISTORY ITEM")
 public class HistoryItem implements Cloneable, DisplayableItem {
 
+	@Column(name = "Id")
+	private int id;
+	@Column(name = "Price")
 	private double price;
+	@Column(name = "Date")
 	private String date;
+	@Column(name = "Time")
 	private String time;
+	@OneToMany(mappedBy = "soldItem")
 	private ArrayList<SoldItem> soldItems;
 	
 	
