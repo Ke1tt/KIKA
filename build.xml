@@ -18,28 +18,26 @@
         <property name="lib.hibernate.dir" value="${lib.dir}/hibernate"/>
 
 	<path id="compile.classpath">
-		<fileset dir="${lib.hibernate.dir}">
-                   <include name="*.jar"/>
-                </fileset>
+	        <fileset dir="${lib.dir}">
+	            <include name="*.jar"/>
+	        </fileset>
+			<fileset dir="${lib.hibernate.dir}">
+		             <include name="*.jar"/>
+		        </fileset>
 	</path>
+
 	
 	<path id="run.classpath">
-            <pathelement location="${build.classes.dir}"/>
-             <!-- configuration -->
-            <fileset dir="${lib.dir}">
-                 <include name="*.jar"/>
-            </fileset>
+	        <pathelement location="${build.classes.dir}"/>
+	        <!-- configuration -->
+	        <pathelement location="${conf.dir}"/>
+	        <fileset dir="${lib.dir}">
+	            <include name="*.jar"/>
+	        </fileset>
 
-            <fileset dir="${lib.hibernate.dir}">
-             <include name="*.jar"/>
-            </fileset>
-        </path>
-
-	<path id="run.classpath">
-		<pathelement location="${build.dir}" />
-		<fileset dir="./lib">
-			<include name="*.jar" />
-		</fileset>
+	        <fileset dir="${lib.hibernate.dir}">
+	             <include name="*.jar"/>
+	        </fileset>
 	</path>
 	
 	<java
@@ -162,24 +160,24 @@
 	</target>
 	
 	<target name="dbmanager" description="Start the HSQLDB manager">
-	<java
+		<java
              classname="org.hsqldb.util.DatabaseManagerSwing"
              classpathref="run.classpath"
              fork="yes"
         >
-        <arg line="--user sa --url ${db.url}" />
+        	<arg line="--user sa --url ${db.url}" />
         </java>
-        </target>
+    </target>
         
-        <target name="startdb" description="Start the HSQLDB with the default params">
+    <target name="startdb" description="Start the HSQLDB with the default params">
         <java
-        classname="org.hsqldb.Server"
-        classpathref="run.classpath"
-        fork="yes"
+        	classname="org.hsqldb.Server"
+        	classpathref="run.classpath"
+        	fork="yes"
         >
-        <arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" />
+        	<arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" />
         </java>
-        </target>
+    </target>
         
         <!-- Stop the HSQL DB server -->
         <target name="stopdb" description="Stop HSQL database server">
