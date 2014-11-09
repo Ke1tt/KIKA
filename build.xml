@@ -8,6 +8,7 @@
 	<property name="dist.dir" location="dist" />
 	<property name="docs.dir" location="docs" />
 	<property name="Intro" value="bin.ee.ut.math.tvt.kika.Intro" />
+	<property name="lib.dir" value="${basedir}/lib"/>
 	
 	<!-- database variables -->
         <property name="data.dir"	value="${basedir}/data"/>
