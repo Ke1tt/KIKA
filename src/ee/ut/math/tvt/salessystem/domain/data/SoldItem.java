@@ -15,10 +15,8 @@ import javax.persistence.Table;
 @Table(name = "SOLD ITEM")
 public class SoldItem implements Cloneable, DisplayableItem {
 
-	@Id
     private Long id;
 	
-	@OneToOne
     private StockItem stockItem;
     
 	
