@@ -3,11 +3,12 @@
 
 	<!-- Sets variables which can later be used. -->
 	<!-- The value of a property is accessed via ${} -->
-	<property name="src.dir" location="src" />
+	<property name="src.dir" location="${basedir}/src" />
 	<property name="build.dir" location="${basedir}/build" />
-	<property name="dist.dir" location="dist" />
-	<property name="docs.dir" location="docs" />
-	<property name="Intro" value="bin.ee.ut.math.tvt.kika.Intro" />
+	<property name="build.classes.dir" value="${build.dir}/classes"/>
+	<property name="build.jar.dir" value="${build.dir}/jar"/>
+	<property name="dist.dir" location="${basedir}/dist" />
+	<property name="docs.dir" location="${basedir}/docs" />
 	<property name="lib.dir" value="${basedir}/lib"/>
 	
 	<!-- database variables -->
@@ -18,37 +19,27 @@
         <property name="lib.hibernate.dir" value="${lib.dir}/hibernate"/>
 
 	<path id="compile.classpath">
-		<fileset dir="${lib.hibernate.dir}">
-                   <include name="*.jar"/>
-                </fileset>
+	        <fileset dir="${lib.dir}">
+	            <include name="*.jar"/>
+	        </fileset>
+			<fileset dir="${lib.hibernate.dir}">
+		             <include name="*.jar"/>
+		        </fileset>
 	</path>
+
 	
 	<path id="run.classpath">
-            <pathelement location="${build.classes.dir}"/>
-             <!-- configuration -->
-            <fileset dir="${lib.dir}">
-                 <include name="*.jar"/>
-            </fileset>
+	        <pathelement location="${build.classes.dir}"/>
+	        <!-- configuration -->
+	        <pathelement location="${conf.dir}"/>
+	        <fileset dir="${lib.dir}">
+	            <include name="*.jar"/>
+	        </fileset>
 
-            <fileset dir="${lib.hibernate.dir}">
-             <include name="*.jar"/>
-            </fileset>
-        </path>
-
-	<path id="run.classpath">
-		<pathelement location="${build.dir}" />
-		<fileset dir="./lib">
-			<include name="*.jar" />
-		</fileset>
+	        <fileset dir="${lib.hibernate.dir}">
+	             <include name="*.jar"/>
+	        </fileset>
 	</path>
-	
-	<java
-          classname="ee.ut.math.tvt.kika.Intro"
-            classpathref="run.classpath"
-            fork="yes">
-          <jvmarg value="-Xdebug" />
-          <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044" />
-        </java>
 
 	<target name="versionNumber">
 		<propertyfile file="resources/version.properties">
@@ -72,15 +63,20 @@
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${docs.dir}" />
 		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${build.classes.dir}" />
 	</target>
 
 	<target name="build" description="Run the Intro" depends="clean, makedir">
-		<javac srcdir="${src.dir}" destdir="${build.dir}">
+		<javac 
+			srcdir="${src.dir}" 
+			destdir="${build.classes.dir}" 
+			debug="true"
+			debuglevel="lines,vars,source"
+			encoding="utf-8"
+			compiler="modern"
+			includeantruntime="false">
 			<classpath refid="compile.classpath" />
 		</javac>
-		<copy todir="${build.dir}">
-			<fileset dir="." />
-		</copy>
 	</target>
 
 	<!-- Creates Javadoc -->
@@ -104,12 +100,11 @@
 	</target>
 
 
-	<target name="run" depends="build">
+	<target name="run" depends="build" description="Run the application">
 		<java fork="true" failonerror="no" classname="ee.ut.math.tvt.kika.Intro" classpathref="run.classpath">
-
 			<arg line="KIKA" />
 		</java>
-	</target>
+	</target> 
 
 	<target name="jrun" depends="dist">
 		<echo message="Starting JRun server ${jrun.server.name}" />
@@ -162,24 +157,24 @@
 	</target>
 	
 	<target name="dbmanager" description="Start the HSQLDB manager">
-	<java
+		<java
              classname="org.hsqldb.util.DatabaseManagerSwing"
              classpathref="run.classpath"
              fork="yes"
         >
-        <arg line="--user sa --url ${db.url}" />
+        	<arg line="--user sa --url ${db.url}" />
         </java>
-        </target>
+    </target>
         
-        <target name="startdb" description="Start the HSQLDB with the default params">
+    <target name="startdb" description="Start the HSQLDB with the default params">
         <java
-        classname="org.hsqldb.Server"
-        classpathref="run.classpath"
-        fork="yes"
+        	classname="org.hsqldb.Server"
+        	classpathref="run.classpath"
+        	fork="yes"
         >
-        <arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" />
+        	<arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" />
         </java>
-        </target>
+    </target>
         
         <!-- Stop the HSQL DB server -->
         <target name="stopdb" description="Stop HSQL database server">

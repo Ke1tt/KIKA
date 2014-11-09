@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 /**
  * Stock item. Corresponds to the Data Transfer Object design pattern.
  */
@@ -96,8 +97,9 @@ public class StockItem implements Cloneable, DisplayableItem {
     }
 
     public void setId(Long id) {
-        this.id = id;
-    }
+    	this.id = id;
+    } 	
+
     
     public int getQuantity() {
         return quantity;
@@ -132,5 +134,7 @@ public class StockItem implements Cloneable, DisplayableItem {
             new StockItem(getId(), getName(), getDescription(), getPrice(), getQuantity());
         return item;
     }
+    
+    
 		
 }
