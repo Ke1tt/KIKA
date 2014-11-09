@@ -1,7 +1,10 @@
 package ee.ut.math.tvt.salessystem.domain.data;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,6 +29,9 @@ public class StockItem implements Cloneable, DisplayableItem {
     @Column(name = "Quantity")
     private int quantity;
 
+    @OneToMany(mappedBy = "soldItem")
+    private Set<SoldItem> soldItem;
+    
     /**
      * Constucts new <code>StockItem</code> with the specified values.
      * @param id barcode id
@@ -84,7 +90,7 @@ public class StockItem implements Cloneable, DisplayableItem {
     public void setPrice(double price) {
         this.price = price;
     }
-
+    
     public Long getId() {
         return id;
     }
