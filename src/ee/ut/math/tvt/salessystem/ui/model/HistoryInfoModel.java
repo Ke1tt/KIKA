@@ -4,6 +4,7 @@ package ee.ut.math.tvt.salessystem.ui.model;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 
 public class HistoryInfoModel extends SalesSystemTableModel<SoldItem>{
+	private static final long serialVersionUID = -1427369210939461637L;
 
 	public HistoryInfoModel() {
 		super(new String[] {"Name", "Price", "Quantity", "Sum"});

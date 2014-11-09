@@ -114,7 +114,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 	}
 	
 	public ArrayList<SoldItem> soldItems(){
-		ArrayList solditems = new ArrayList<SoldItem>();
+		ArrayList<SoldItem> solditems = new ArrayList<SoldItem>();
 		for(SoldItem item: getTableRows()){
 			solditems.add(item);
 		}

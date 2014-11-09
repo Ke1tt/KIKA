@@ -14,9 +14,9 @@ import javax.swing.JTextField;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 
 public class AddItemsWarehouseModel extends JFrame{
-	 private JButton cancelItem;
+	private static final long serialVersionUID = 3674437109116865831L;
+	private JButton cancelItem;
 	 private JButton confirmItem;
-	 private SalesSystemModel model;
 	 
 	 protected void cancelButtonClicked(){
 	    	setVisible(false);

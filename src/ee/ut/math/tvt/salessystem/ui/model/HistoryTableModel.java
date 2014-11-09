@@ -1,12 +1,9 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
-import org.apache.log4j.Logger;
-
 import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
 
 public class HistoryTableModel extends SalesSystemTableModel<HistoryItem> {
-	private static final Logger log = Logger.getLogger(StockTableModel.class);
-	private SalesSystemModel model;
+	private static final long serialVersionUID = -2525726730045875622L;
 	
 	public HistoryTableModel() {
 		super(new String[] {"Date of the order", "Time of the order", "Total order price"});

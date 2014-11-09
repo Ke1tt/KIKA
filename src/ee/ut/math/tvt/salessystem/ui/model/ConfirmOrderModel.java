@@ -18,14 +18,13 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 
 public class ConfirmOrderModel extends JFrame {
-	
+	private static final long serialVersionUID = 4093743879456172387L;
+
 	private static final Logger log = Logger.getLogger(PurchaseInfoTableModel.class);
-	
-	private SalesSystemModel model;
+
 	
 	public ConfirmOrderModel(double total, ArrayList<SoldItem> solditems, PurchaseTab purchase) {
 		
