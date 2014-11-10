@@ -2,8 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="dist"/>
-	<classpathentry kind="src" path="etc"/>
-	<classpathentry kind="src" path="docs"/>
 	<classpathentry kind="src" path="data"/>
 	<classpathentry kind="src" path="conf"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
