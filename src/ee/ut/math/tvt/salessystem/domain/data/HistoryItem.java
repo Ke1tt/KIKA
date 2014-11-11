@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 @Table(name = "HISTORY ITEM")
 public class HistoryItem implements Cloneable, DisplayableItem {
 
+	@Id
 	@Column(name = "Id")
 	private int id;
 	@Column(name = "Price")

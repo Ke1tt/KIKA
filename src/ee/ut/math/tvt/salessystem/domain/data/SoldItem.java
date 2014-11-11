@@ -2,6 +2,7 @@ package ee.ut.math.tvt.salessystem.domain.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,11 +17,12 @@ import javax.persistence.Table;
 @Table(name = "SOLD ITEM")
 public class SoldItem implements Cloneable, DisplayableItem {
 
+	@Id
 	@Column(name = "Id")
     private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "Sale_id", nullable = false)
+	@JoinColumn(name = "SALE_ID", nullable = false)
 	private HistoryItem historyItem;
 	
 	@ManyToOne
