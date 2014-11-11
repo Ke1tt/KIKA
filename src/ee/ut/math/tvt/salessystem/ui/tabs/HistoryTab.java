@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -53,7 +54,7 @@ public class HistoryTab {
     				//Find item that was clicked
     				model.getHistoryInfoModel().clear();
     				HistoryItem item = model.getHistoryTableModel().getRow(notempty.getMinSelectionIndex());
-    				ArrayList<SoldItem> items = item.getSoldItems();
+    				List<SoldItem> items = item.getSoldItems();
     				for(SoldItem sold: items){
     					model.getHistoryInfoModel().addItem(sold);
     				}

@@ -16,6 +16,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -199,7 +200,7 @@ public class PurchaseTab {
           model.getCurrentPurchaseTableModel().getTableRows()
       );
       model.getHistoryTableModel().addItem(item);
-      ArrayList<SoldItem> solditems = item.getSoldItems();
+      List<SoldItem> solditems = item.getSoldItems();
       for(SoldItem sold: solditems){
     	  StockItem stock = sold.getStockItem();
     	  stock.setQuantity(stock.getQuantity()-sold.getQuantity());

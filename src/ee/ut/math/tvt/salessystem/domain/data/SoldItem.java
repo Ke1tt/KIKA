@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * Already bought StockItem. SoldItem duplicates name and price for preserving history. 
  */
 @Entity
-@Table(name = "SOLD ITEM")
+@Table(name = "SOLDITEM")
 public class SoldItem implements Cloneable, DisplayableItem {
 
 	@Id

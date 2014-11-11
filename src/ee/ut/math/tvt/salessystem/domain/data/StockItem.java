@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * Stock item. Corresponds to the Data Transfer Object design pattern.
  */
 @Entity
-@Table(name = "STOCK ITEM")
+@Table(name = "STOCKITEM")
 public class StockItem implements Cloneable, DisplayableItem {
 	
 	@Id
@@ -32,7 +32,7 @@ public class StockItem implements Cloneable, DisplayableItem {
     @Column(name = "Quantity")
     private int quantity;
 
-    @OneToMany(mappedBy = "soldItem")
+    @OneToMany(mappedBy = "stockItem")
     private Set<SoldItem> soldItem;
     
     /**

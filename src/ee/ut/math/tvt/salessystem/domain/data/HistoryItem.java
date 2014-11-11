@@ -1,6 +1,7 @@
 package ee.ut.math.tvt.salessystem.domain.data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "HISTORY ITEM")
+@Table(name = "HISTORY")
 public class HistoryItem implements Cloneable, DisplayableItem {
 
 	@Id
@@ -21,8 +22,8 @@ public class HistoryItem implements Cloneable, DisplayableItem {
 	private String date;
 	@Column(name = "Time")
 	private String time;
-	@OneToMany(mappedBy = "soldItem")
-	private ArrayList<SoldItem> soldItems;
+	@OneToMany(mappedBy = "historyItem")
+	private List<SoldItem> soldItems;
 	
 	
 	public HistoryItem(String date, String time, double price,
@@ -59,7 +60,7 @@ public class HistoryItem implements Cloneable, DisplayableItem {
 		return time;
 	}
 
-	public ArrayList<SoldItem> getSoldItems() {
+	public List<SoldItem> getSoldItems() {
 		return soldItems;
 	}
 	
