@@ -177,13 +177,5 @@
         </java>
     </target>
         
-        <!-- Stop the HSQL DB server -->
-        <target name="stopdb" description="Stop HSQL database server">
-             <sql driver="${db.driver}" url="${db.url}" userid="${db.user}" password="${db.pw}" onerror="continue">
-                <classpath refid="lib.class.path" />
-                    SHUTDOWN;
-             </sql>
-        </target>
-
 	
 </project>

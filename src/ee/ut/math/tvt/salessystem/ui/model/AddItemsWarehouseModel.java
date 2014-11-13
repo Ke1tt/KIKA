@@ -12,13 +12,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 public class AddItemsWarehouseModel extends JFrame {
 	private static final Logger log = Logger
 			.getLogger(AddItemsWarehouseModel.class);
 	private static final long serialVersionUID = 3674437109116865831L;
+	
+	private Session session = HibernateUtil.currentSession();
 	private JButton cancelItem;
 	private JButton confirmItem;
 
@@ -78,6 +83,12 @@ public class AddItemsWarehouseModel extends JFrame {
 				StockItem item = confirmButtonClicked(id, name, price, quantity);
 				stock.addItem(item);
 				log.info("Item(s) added. ");
+				
+				//adding item to database
+				Transaction ta = session.beginTransaction();
+				session.save(item);
+				ta.commit();
+				
 				setVisible(false);
 
 			}
