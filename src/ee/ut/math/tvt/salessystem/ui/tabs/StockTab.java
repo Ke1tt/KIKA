@@ -17,8 +17,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 
+import org.apache.log4j.Logger;
+
 
 public class StockTab {
+	
+	private static final Logger log = Logger
+			.getLogger(StockTab.class);
 
   private JButton addItem;
 

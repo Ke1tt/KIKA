@@ -1,9 +1,14 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
 
+import org.apache.log4j.Logger;
+
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 
 public class HistoryInfoModel extends SalesSystemTableModel<SoldItem>{
+	private static final Logger log = Logger
+			.getLogger(HistoryInfoModel.class);
+	
 	private static final long serialVersionUID = -1427369210939461637L;
 
 	public HistoryInfoModel() {
@@ -28,6 +33,7 @@ public class HistoryInfoModel extends SalesSystemTableModel<SoldItem>{
 	
 	public void addItem(final SoldItem item){
 		rows.add(item);
+		log.info("Added item(s) to history. ");
 		fireTableDataChanged();
 	}
 }

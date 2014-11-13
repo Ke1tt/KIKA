@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 
 import javax.swing.table.AbstractTableModel;
 
+import org.apache.log4j.Logger;
+
 import ee.ut.math.tvt.salessystem.domain.data.DisplayableItem;
 
 /**
@@ -13,6 +15,9 @@ import ee.ut.math.tvt.salessystem.domain.data.DisplayableItem;
  */
 public abstract class SalesSystemTableModel<T extends DisplayableItem> extends
         AbstractTableModel {
+	
+	private static final Logger log = Logger
+			.getLogger(SalesSystemTableModel.class);
 
     private static final long serialVersionUID = 1L;
 

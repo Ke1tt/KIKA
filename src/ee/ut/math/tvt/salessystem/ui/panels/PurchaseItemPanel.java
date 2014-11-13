@@ -3,7 +3,6 @@ package ee.ut.math.tvt.salessystem.ui.panels;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
-import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.util.NoSuchElementException;
 
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -22,13 +20,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.TableModelListener;
+
+import org.apache.log4j.Logger;
 
 /**
  * Purchase pane + shopping cart tabel UI.
  */
 public class PurchaseItemPanel extends JPanel {
 
+	private static final Logger log = Logger
+			.getLogger(PurchaseItemPanel.class);
+	
     private static final long serialVersionUID = 1L;
 
     // Text field on the dialogPane

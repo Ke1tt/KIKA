@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -15,6 +14,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.log4j.Logger;
+
 import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
@@ -24,6 +25,9 @@ import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
  * labelled "History" in the menu).
  */
 public class HistoryTab {
+	
+	private static final Logger log = Logger
+			.getLogger(HistoryTab.class);
     	
 	  //private static final Logger log = Logger.getLogger(PurchaseTab.class);
 

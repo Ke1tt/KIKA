@@ -10,52 +10,53 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.apache.log4j.Logger;
+
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 
-public class AddItemsWarehouseModel extends JFrame{
+public class AddItemsWarehouseModel extends JFrame {
+	private static final Logger log = Logger
+			.getLogger(AddItemsWarehouseModel.class);
 	private static final long serialVersionUID = 3674437109116865831L;
 	private JButton cancelItem;
-	 private JButton confirmItem;
-	 
-	 protected void cancelButtonClicked(){
-	    	setVisible(false);
-	  	  
-	    }
-	 protected StockItem confirmButtonClicked(JFormattedTextField id,  JTextField name,
-			 JFormattedTextField price, JFormattedTextField quantity){
-		 Long StockId = (Long.valueOf(Integer.parseInt(id.getText())));
-		 String StockName = (name.getText().toString());
-		 Double StockPrice = (Double.valueOf(price.getText()));
-		 Integer StockQuantity = (Integer.parseInt(quantity.getText()));
-		 StockItem item = new StockItem(StockId, StockName, StockPrice, StockQuantity);
-		 
-		 return item;
-	 }
+	private JButton confirmItem;
 
-	public AddItemsWarehouseModel(StockTableModel stock){
-		
-	    
-	   
-	    
+	protected void cancelButtonClicked() {
+		setVisible(false);
+
+	}
+
+	protected StockItem confirmButtonClicked(JFormattedTextField id,
+			JTextField name, JFormattedTextField price,
+			JFormattedTextField quantity) {
+		Long StockId = (Long.valueOf(Integer.parseInt(id.getText())));
+		String StockName = (name.getText().toString());
+		Double StockPrice = (Double.valueOf(price.getText()));
+		Integer StockQuantity = (Integer.parseInt(quantity.getText()));
+		StockItem item = new StockItem(StockId, StockName, StockPrice,
+				StockQuantity);
+
+		return item;
+	}
+
+	public AddItemsWarehouseModel(StockTableModel stock) {
+
 		final JPanel panel = new JPanel();
-		
-		panel.setLayout(new GridLayout(0,2));
-		
+
+		panel.setLayout(new GridLayout(0, 2));
+
 		cancelItem = new JButton("Cancel");
-	    cancelItem.addActionListener(new ActionListener(){
+		cancelItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				cancelButtonClicked();
-				
-			}
-	    	
 
-			
-	    });
-	    
-	   
-		
+			}
+
+		});
+
 		JLabel idLabel = new JLabel("Add product's bar code: ");
 		final JFormattedTextField id = new JFormattedTextField();
 		id.setValue(new Double(0.0));
@@ -67,21 +68,22 @@ public class AddItemsWarehouseModel extends JFrame{
 		final JLabel quantityLabel = new JLabel("Add product's quantity: ");
 		final JFormattedTextField quantity = new JFormattedTextField();
 		quantity.setValue(new Integer(0));
-		
-		 confirmItem = new JButton("Confirm");
-		    confirmItem.addActionListener(new ActionListener(){
 
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					
-					StockItem item = confirmButtonClicked(id, name, price, quantity);
-					stock.addItem(item);
-					setVisible(false);
-					
-				}
-		    	
-		    });
-		
+		confirmItem = new JButton("Confirm");
+		confirmItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				StockItem item = confirmButtonClicked(id, name, price, quantity);
+				stock.addItem(item);
+				log.info("Item(s) added. ");
+				setVisible(false);
+
+			}
+
+		});
+
 		panel.add(idLabel);
 		panel.add(id);
 		panel.add(nameLabel);
@@ -92,11 +94,11 @@ public class AddItemsWarehouseModel extends JFrame{
 		panel.add(quantity);
 		panel.add(cancelItem);
 		panel.add(confirmItem);
-		
+
 		setLocationRelativeTo(null);
 		setTitle("Add items to warehouse. ");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		add(panel);
 		pack();
 	}
