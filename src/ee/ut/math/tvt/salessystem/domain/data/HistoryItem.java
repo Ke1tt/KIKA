@@ -1,5 +1,6 @@
 package ee.ut.math.tvt.salessystem.domain.data;
 
+
 import java.util.ArrayList;
 import java.util.List;
 

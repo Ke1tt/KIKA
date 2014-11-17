@@ -1,10 +1,13 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.ui.tabs.PurchaseTab;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,6 +24,8 @@ import javax.swing.JPanel;
 
 public class ConfirmOrderModel extends JFrame {
 	private static final long serialVersionUID = 4093743879456172387L;
+	
+	private Session session = HibernateUtil.currentSession();
 
 	private static final Logger log = Logger
 			.getLogger(PurchaseInfoTableModel.class);
@@ -88,6 +93,14 @@ public class ConfirmOrderModel extends JFrame {
 				HistoryItem item = new HistoryItem(date, time, total, solditems);
 
 				purchase.submitPurchaseButtonClicked(item);
+				
+				//adding historyItem to database
+				/*
+				Transaction ta = session.beginTransaction();
+				session.save(item);
+				ta.commit();
+				*/
+				
 				setVisible(false);
 				purchase.unlockTab();
 			}
