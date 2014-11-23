@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -80,26 +81,14 @@ public class ConfirmOrderModel extends JFrame {
 		accept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				// salvestab orderi
-				// kuupaev
-				Calendar rightNow = Calendar.getInstance();
-				SimpleDateFormat sdf1 = new SimpleDateFormat("dd MMM yyyy");
-				String date = sdf1.format(rightNow.getTime());
-
-				// kellaaeg
-				SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
-				String time = sdf2.format(rightNow.getTime());
-
-				HistoryItem item = new HistoryItem(date, time, total, solditems);
+				HistoryItem item = new HistoryItem(new Date(), total, solditems);
 
 				purchase.submitPurchaseButtonClicked(item);
 				
 				//adding historyItem to database
-				/*
 				Transaction ta = session.beginTransaction();
 				session.save(item);
 				ta.commit();
-				*/
 				
 				setVisible(false);
 				purchase.unlockTab();

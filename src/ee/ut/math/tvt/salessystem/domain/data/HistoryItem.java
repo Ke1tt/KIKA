@@ -2,6 +2,7 @@ package ee.ut.math.tvt.salessystem.domain.data;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,19 +21,16 @@ public class HistoryItem implements Cloneable, DisplayableItem {
 	@Column(name = "Price")
 	private double price;
 	@Column(name = "Date")
-	private String date;
-	@Column(name = "Time")
-	private String time;
+	private Date soldTime;
 	@OneToMany(mappedBy = "historyItem")
 	private List<SoldItem> soldItems;
 	
 	
-	public HistoryItem(String date, String time, double price,
+	public HistoryItem(Date soldTime, double price,
 			ArrayList<SoldItem> soldItems) {
 		super();
 		this.price = price;
-		this.date = date;
-		this.time = time;
+		this.soldTime = new Date();
 		this.soldItems = soldItems;
 	}
 
@@ -53,18 +51,12 @@ public class HistoryItem implements Cloneable, DisplayableItem {
 		return price;
 	}
 
-	public String getDate() {
-		return date;
-	}
-
-	public String getTime() {
-		return time;
+	public Date getSoldTime() {
+		return soldTime;
 	}
 
 	public List<SoldItem> getSoldItems() {
 		return soldItems;
 	}
-	
-	
 	
 }
