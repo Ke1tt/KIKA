@@ -33,7 +33,6 @@ public class HistoryInfoModel extends SalesSystemTableModel<SoldItem>{
 	
 	public void addItem(final SoldItem item){
 		rows.add(item);
-		log.info("Added item(s) to history. ");
 		fireTableDataChanged();
 	}
 }
