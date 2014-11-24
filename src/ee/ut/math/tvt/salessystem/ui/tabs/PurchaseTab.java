@@ -8,6 +8,7 @@ import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.ConfirmOrderModel;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -23,6 +24,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Encapsulates everything that has to do with the purchase tab (the tab
@@ -33,6 +36,8 @@ public class PurchaseTab {
   private static final Logger log = Logger.getLogger(PurchaseTab.class);
 
   private final SalesDomainController domainController;
+  
+  private Session session = HibernateUtil.currentSession();
 
   private JButton newPurchase;
 
@@ -189,7 +194,6 @@ public class PurchaseTab {
 	  lockTab();
 	  
   }
-  
 
   /** Event handler for the <code>submit purchase</code> event. */
   public void submitPurchaseButtonClicked(HistoryItem item) {

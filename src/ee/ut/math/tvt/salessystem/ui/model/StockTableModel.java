@@ -1,10 +1,14 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 	
 /**
  * Stock item table model.
@@ -13,6 +17,8 @@ public class StockTableModel extends SalesSystemTableModel<StockItem>{
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = Logger.getLogger(StockTableModel.class);
+	
+	private Session session = HibernateUtil.currentSession();
 
 	public StockTableModel() {
 		super(new String[] {"Id", "Name", "Price", "Quantity"});
@@ -46,11 +52,22 @@ public class StockTableModel extends SalesSystemTableModel<StockItem>{
 			item.setQuantity(item.getQuantity() + stockItem.getQuantity());
 			log.debug("Found existing item " + stockItem.getName()
 					+ " increased quantity by " + stockItem.getQuantity());
+			
+			//Increases item's quantity in database
+			Transaction ta = session.beginTransaction();
+			StockItem stock = (StockItem)session.get(StockItem.class,item.getId());
+			stock.setQuantity(item.getQuantity());
+			ta.commit();
 		}
 		catch (NoSuchElementException e) {
 			rows.add(stockItem);
 			log.debug("Added " + stockItem.getName()
 					+ " quantity of " + stockItem.getQuantity());
+			
+			//adds item to warehouse
+			Transaction ta = session.beginTransaction();
+			session.save(stockItem);
+			ta.commit();
 		}
 		fireTableDataChanged();
 	}

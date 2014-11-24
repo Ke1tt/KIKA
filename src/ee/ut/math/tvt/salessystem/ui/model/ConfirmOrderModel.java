@@ -2,6 +2,7 @@ package ee.ut.math.tvt.salessystem.ui.model;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
@@ -89,7 +90,17 @@ public class ConfirmOrderModel extends JFrame {
 				Transaction ta = session.beginTransaction();
 				session.save(item);
 				ta.commit();
+				/*
+				HibernateUtil.closeSession();
+				System.out.println(session);
+				HibernateUtil.currentSession();
 				
+				Transaction ta2 = session.beginTransaction();
+				for(SoldItem sold : solditems) {
+					session.save(sold);
+				}
+				ta2.commit();
+				*/
 				setVisible(false);
 				purchase.unlockTab();
 			}

@@ -23,7 +23,6 @@ public class AddItemsWarehouseModel extends JFrame {
 			.getLogger(AddItemsWarehouseModel.class);
 	private static final long serialVersionUID = 3674437109116865831L;
 	
-	private Session session = HibernateUtil.currentSession();
 	private JButton cancelItem;
 	private JButton confirmItem;
 
@@ -83,11 +82,6 @@ public class AddItemsWarehouseModel extends JFrame {
 				StockItem item = confirmButtonClicked(id, name, price, quantity);
 				stock.addItem(item);
 				log.info("Item(s) added. ");
-				
-				//adding item to database
-				Transaction ta = session.beginTransaction();
-				session.save(item);
-				ta.commit();
 				
 				setVisible(false);
 

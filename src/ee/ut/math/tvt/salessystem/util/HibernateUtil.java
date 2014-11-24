@@ -29,7 +29,9 @@ public class HibernateUtil {
 	private static Session session;
 	public static Session currentSession() throws HibernateException {
 		// Open a new Session, if this thread has none yet
+		System.out.println("1");
 		if (session == null) {
+			System.out.println("2");
 			session = sessionFactory.openSession();
 			}
 		return session;
