@@ -87,20 +87,22 @@ public class ConfirmOrderModel extends JFrame {
 				purchase.submitPurchaseButtonClicked(item);
 				
 				//adding historyItem to database
+				/*
 				Transaction ta = session.beginTransaction();
 				session.save(item);
 				ta.commit();
+				*/
 				/*
 				HibernateUtil.closeSession();
 				System.out.println(session);
 				HibernateUtil.currentSession();
-				
+				*/
 				Transaction ta2 = session.beginTransaction();
 				for(SoldItem sold : solditems) {
 					session.save(sold);
 				}
 				ta2.commit();
-				*/
+			
 				setVisible(false);
 				purchase.unlockTab();
 			}
