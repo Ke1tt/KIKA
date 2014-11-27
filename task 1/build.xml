@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="runIntro" default="run">
+
+	<!-- Sets variables which can later be used. -->
+	<!-- The value of a property is accessed via ${} -->
+	<property name="src.dir" location="${basedir}/src" />
+	<property name="build.dir" location="${basedir}/build" />
+	<property name="build.classes.dir" value="${build.dir}/classes"/>
+	<property name="build.jar.dir" value="${build.dir}/jar"/>
+	<property name="dist.dir" location="${basedir}/dist" />
+	<property name="docs.dir" location="${basedir}/docs" />
+	<property name="lib.dir" value="${basedir}/lib"/>
+	<property name="conf.dir" value = "${basedir}/conf"/>
+	
+	<!-- database variables -->
+        <property name="data.dir"	value="${basedir}/data"/>
+        <property name="db.file"	value="${data.dir}/POSdb"/>
+        <property name="db.alias"	value="POS"/>
+        <property name="db.url" value="jdbc:hsqldb:hsql://localhost/POS"/>
+        <property name="lib.hibernate.dir" value="${lib.dir}/hibernate"/>
+
+	<path id="compile.classpath">
+	        <fileset dir="${lib.dir}">
+	            <include name="*.jar"/>
+	        </fileset>
+			<fileset dir="${lib.hibernate.dir}">
+		             <include name="*.jar"/>
+		        </fileset>
+	</path>
+
+	
+	<path id="run.classpath">
+	        <pathelement location="${build.classes.dir}"/>
+	        <!-- configuration -->
+	        <pathelement location="${conf.dir}"/>
+	        <fileset dir="${lib.dir}">
+	            <include name="*.jar"/>
+	        </fileset>
+
+	        <fileset dir="${lib.hibernate.dir}">
+	             <include name="*.jar"/>
+	        </fileset>
+	</path>
+
+	<target name="versionNumber">
+		<propertyfile file="version.properties">
+			<entry key="build.revision.number" value="1" default="1" type="int" operation="+" pattern="0" />
+		</propertyfile>
+		<property file="version.properties" />
+		<propertyfile file="version.properties">
+			<entry key="build.number" value="${build.major.number}.${build.minor.number}.${build.revision.number}" />
+		</propertyfile>
+	</target>
+
+	<!-- Deletes the existing build, docs and dist directory-->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${docs.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<!-- Creates the  build, docs and dist directory-->
+	<target name="makedir">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${docs.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+
+	<target name="build" description="Run the Intro" depends="clean, makedir">
+		<javac 
+			srcdir="${src.dir}" 
+			destdir="${build.classes.dir}" 
+			debug="true"
+			debuglevel="lines,vars,source"
+			encoding="utf-8"
+			compiler="modern"
+			includeantruntime="false">
+			<classpath refid="compile.classpath" />
+		</javac>
+	</target>
+
+	<!-- Creates Javadoc -->
+	<target name="docs" depends="build">
+		<javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}">
+			<!-- Define which files / directory should get included, we include all -->
+			<fileset dir="${src.dir}">
+				<include name="**" />
+			</fileset>
+		</javadoc>
+	</target>
+
+	<!--Creates the deployable jar file  -->
+	<target name="dist" depends="build" description="Create a jar for the HW project">
+		<mkdir dir="dist" />
+		<jar destfile="dist/KIKA.jar" includes="*.class" basedir="src">
+			<manifest>
+				<attribute name="Intro" value="${Intro}" />
+			</manifest>
+		</jar>
+	</target>
+
+
+	<target name="run" depends="build" description="Run the application">
+		<java fork="true" failonerror="no" classname="ee.ut.math.tvt.kika.Intro" classpathref="run.classpath">
+			<arg line="KIKA" />
+		</java>
+	</target> 
+
+	<target name="jrun" depends="dist">
+		<echo message="Starting JRun server ${jrun.server.name}" />
+		<java jar="dist/KIKA.jar" fork="true" />
+	</target>
+
+	<target name="runc" depends="build" description="Run the application (console)">
+		<java classname="ee.ut.math.tvt.kika.Intro" classpathref="run.classpath" fork="yes">
+			<arg value="console" />
+		</java>
+	</target>
+
+	<target name="git_commit" description="ask commit comment, make commit to repository, push changes to GitHub">
+		<input message="Enter comment: " addproperty="comment" />
+		<echo message="Commiting all changes with message ${comment}" />
+		
+		<input message="Please enter user name:" addproperty="username" />
+		<input message="Please enter password:" addproperty="password" />
+		
+		<exec executable="git" inputstring="${basedir}">
+	  		<arg value = "add" />
+	  		<arg value = "-A" />
+		</exec>
+		<exec executable="git">
+			<arg value = "commit" />
+		 	<arg value = "-m" />
+			<arg value = "${comment}" />
+	  	</exec>
+		<exec executable="git">
+			<arg value = "push" />
+			<arg value = "https://${username}:${password}@github.com/PirnPurgis/KIKA" />
+		</exec>
+	</target>
+	
+	<target name="git_tag" description ="create tag, synchronize with GitHub">
+		<input message="Enter tag name:" addproperty="tag"/>
+		<input message="Enter comment:" addproperty="tagcomment"/>
+		<echo message="Commiting all changes with message ''${tagcomment}'' and tag ''${tag}''" />
+		<exec executable ="git">
+			<arg value = "tag" />
+		  	<arg value = "-a" />
+			<arg value = "${tag}" />
+			<arg value = "-m" />
+			<arg value = "${tagcomment}" />
+		</exec>
+		<exec executable="git">
+			<arg value = "push" />
+			<arg value = "--tags" />
+		</exec>
+	</target>
+	
+	<target name="dbmanager" description="Start the HSQLDB manager">
+		<java
+             classname="org.hsqldb.util.DatabaseManagerSwing"
+             classpathref="run.classpath"
+             fork="yes"
+        >
+        	<arg line="--user sa --url ${db.url}" />
+        </java>
+    </target>
+        
+    <target name="startdb" description="Start the HSQLDB with the default params">
+        <java
+        	classname="org.hsqldb.Server"
+        	classpathref="run.classpath"
+        	fork="yes"
+        >
+        	<arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" />
+        </java>
+    </target>
+        
+	
+</project>
