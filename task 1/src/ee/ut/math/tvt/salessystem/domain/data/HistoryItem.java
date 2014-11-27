@@ -28,6 +28,9 @@ public class HistoryItem implements Cloneable, DisplayableItem {
 	@OneToMany(mappedBy = "historyItem")
 	private List<SoldItem> soldItems;
 	
+	public HistoryItem() {
+		//default constructor
+	}
 	
 	public HistoryItem(Date soldTime, double price,
 			ArrayList<SoldItem> soldItems) {

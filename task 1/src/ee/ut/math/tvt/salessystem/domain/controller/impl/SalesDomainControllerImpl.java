@@ -44,7 +44,7 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 	}
 	
 	public List<HistoryItem> loadHistoryState() {
-		List<HistoryItem> dataset = session.createQuery("from History").list();
+		List<HistoryItem> dataset = session.createQuery("from HistoryItem").list();
 		return dataset;
 	}
 	
