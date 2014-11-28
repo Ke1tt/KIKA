@@ -93,6 +93,7 @@ public class ConfirmOrderModel extends JFrame {
 
 				for(SoldItem sold : solditems) {
 					Transaction ta2 = session.beginTransaction();
+					sold.setHistoryItem(item);
 					session.save(sold);
 					ta2.commit();
 				}

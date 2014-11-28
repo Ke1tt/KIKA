@@ -45,6 +45,10 @@ public class SoldItem implements Cloneable, DisplayableItem {
         
     }
     
+    public SoldItem(){
+    	//default constructor
+    }
+    
     
     public Long getId() {
         return id;
@@ -89,6 +93,10 @@ public class SoldItem implements Cloneable, DisplayableItem {
 
     public void setStockItem(StockItem stockItem) {
         this.stockItem = stockItem;
+    }
+    
+    public void setHistoryItem(HistoryItem historyItem) {
+    	this.historyItem = historyItem;
     }
     
 }
