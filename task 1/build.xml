@@ -18,6 +18,10 @@
         <property name="db.alias"	value="POS"/>
         <property name="db.url" value="jdbc:hsqldb:hsql://localhost/POS"/>
         <property name="lib.hibernate.dir" value="${lib.dir}/hibernate"/>
+	
+	<!-- JUnit variables -->
+	<property name="build.test.dir"       value="${build.dir}/test"/>
+	<property name="test.dir"   value="${basedir}/test"/>
 
 	<path id="compile.classpath">
 	        <fileset dir="${lib.dir}">
@@ -41,6 +45,14 @@
 	             <include name="*.jar"/>
 	        </fileset>
 	</path>
+	
+	<path id="test-classpath">
+			<fileset dir="${lib.dir}">
+				<include name="*.jar"/>
+			</fileset>
+		    <pathelement path="${build.classes.dir}/" />
+			<pathelement path="${build.test.dir}/" />
+		</path>
 
 	<target name="versionNumber">
 		<propertyfile file="version.properties">
@@ -65,6 +77,7 @@
 		<mkdir dir="${docs.dir}" />
 		<mkdir dir="${dist.dir}" />
 		<mkdir dir="${build.classes.dir}" />
+		<mkdir dir="${build.test.dir}"/>
 	</target>
 
 	<target name="build" description="Run the Intro" depends="clean, makedir">
@@ -79,6 +92,24 @@
 			<classpath refid="compile.classpath" />
 		</javac>
 	</target>
+	
+	<target name="build-tests" depends="build" description="Build the system">
+			<javac
+	            srcdir="${test.dir}"
+	            destdir="${build.test.dir}"
+	            debug="true"
+	            debuglevel="lines,vars,source"
+	            encoding="utf-8"
+	            compiler="modern"
+	            target="1.5"
+	            source="1.5"
+	        	classpathref="libs"
+	        >
+				<classpath>
+					<pathelement path="${build.classes.dir}" />
+				</classpath>
+			</javac>
+		</target>
 
 	<!-- Creates Javadoc -->
 	<target name="docs" depends="build">
@@ -117,6 +148,20 @@
 			<arg value="console" />
 		</java>
 	</target>
+	
+	<target name="test" depends="build-tests" description="Run the template application">
+
+			<junit>
+				<classpath refid="test-classpath" />
+
+				<formatter type="brief" usefile="false" />
+				<batchtest>
+					<fileset dir="${build.test.dir}" includes="**/*.class" />
+				</batchtest>
+			</junit>
+
+
+		</target>
 
 	<target name="git_commit" description="ask commit comment, make commit to repository, push changes to GitHub">
 		<input message="Enter comment: " addproperty="comment" />
