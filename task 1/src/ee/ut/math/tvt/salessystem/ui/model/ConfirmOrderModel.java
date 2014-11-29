@@ -99,7 +99,7 @@ public class ConfirmOrderModel extends JFrame {
 				}
 			
 				setVisible(false);
-				purchase.unlockTab();
+				purchase.endSale();
 			}
 		});
 
@@ -107,7 +107,7 @@ public class ConfirmOrderModel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				log.debug("Cancelled paying");
 				setVisible(false);
-				purchase.unlockTab();
+				purchase.endSale();
 			}
 		});
 
