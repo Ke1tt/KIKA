@@ -58,10 +58,8 @@ public class HistoryTab {
     				model.getHistoryInfoModel().clear();
     				HistoryItem item = model.getHistoryTableModel().getRow(notempty.getMinSelectionIndex());
     				List<SoldItem> items = item.getSoldItems();
-    				System.out.println("Kas items on olemas?" + items);
     				for(SoldItem sold: items){
     					model.getHistoryInfoModel().addItem(sold);
-    					System.out.println("SoldItem" + sold);
     				}
     			}
     		}
