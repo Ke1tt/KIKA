@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="task 1/src"/>
+	<classpathentry kind="src" path="task 1/data"/>
+	<classpathentry kind="src" path="task 1/conf"/>
 	<classpathentry kind="src" path="task 1/test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="task 1/lib/commons-logging-1.1.1.jar"/>
