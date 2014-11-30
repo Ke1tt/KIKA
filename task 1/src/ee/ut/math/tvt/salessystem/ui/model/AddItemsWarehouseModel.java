@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -16,12 +17,15 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 public class AddItemsWarehouseModel extends JFrame {
 	private static final Logger log = Logger
 			.getLogger(AddItemsWarehouseModel.class);
 	private static final long serialVersionUID = 3674437109116865831L;
+	
+	private Session session = HibernateUtil.currentSession();
 	
 	private JButton cancelItem;
 	private JButton confirmItem;
@@ -79,11 +83,28 @@ public class AddItemsWarehouseModel extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				StockItem item = confirmButtonClicked(id, name, price, quantity);
-				stock.addItem(item);
-				log.info("Item(s) added. ");
-				
-				setVisible(false);
+				StockItem stockItem = confirmButtonClicked(id, name, price, quantity);
+				try {
+					StockItem item = stock.addItem(stockItem);
+					
+					if (item.getName() != "poleolemas") {
+						//Increases item's quantity in database
+						Transaction ta = session.beginTransaction();
+						StockItem stock = (StockItem)session.get(StockItem.class,item.getId());
+						stock.setQuantity(item.getQuantity());
+						ta.commit();
+					}
+					else {
+						Transaction ta = session.beginTransaction();
+						session.save(stockItem);
+						ta.commit();
+					}
+					log.info("Item(s) added. ");
+					
+					setVisible(false);
+				} catch (VerificationFailedException e) {
+					JOptionPane.showMessageDialog(null,e);
+				}
 
 			}
 

@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 	
 /**
@@ -17,8 +18,6 @@ public class StockTableModel extends SalesSystemTableModel<StockItem>{
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = Logger.getLogger(StockTableModel.class);
-	
-	private Session session = HibernateUtil.currentSession();
 
 	public StockTableModel() {
 		super(new String[] {"Id", "Name", "Price", "Quantity"});
@@ -46,30 +45,31 @@ public class StockTableModel extends SalesSystemTableModel<StockItem>{
 	 * @param stockItem
 	 */
 	
-	public void addItem(StockItem stockItem) {
+	public StockItem addItem(StockItem stockItem) throws VerificationFailedException{
 		try {
 			StockItem item = getItemById(stockItem.getId());
+			
+			//checks if an item with this id already exists
+			if(item.getName().equals(stockItem.getName()) == false) {
+				throw new VerificationFailedException("An item with this id already exists");
+			}
+			
 			item.setQuantity(item.getQuantity() + stockItem.getQuantity());
 			log.debug("Found existing item " + stockItem.getName()
 					+ " increased quantity by " + stockItem.getQuantity());
-			
-			//Increases item's quantity in database
-			Transaction ta = session.beginTransaction();
-			StockItem stock = (StockItem)session.get(StockItem.class,item.getId());
-			stock.setQuantity(item.getQuantity());
-			ta.commit();
+			fireTableDataChanged();
+			return item;
 		}
 		catch (NoSuchElementException e) {
 			rows.add(stockItem);
-			log.debug("Added " + stockItem.getName()
-					+ " quantity of " + stockItem.getQuantity());
-			
-			//adds item to warehouse
-			Transaction ta = session.beginTransaction();
-			session.save(stockItem);
-			ta.commit();
+			log.debug("Added " + stockItem.getName() + " quantity of "
+					+ stockItem.getQuantity());
+
+			// returns an empty StockItem
+			StockItem item = new StockItem((long) 0, "poleolemas", 0, 0);
+			fireTableDataChanged();
+			return item;
 		}
-		fireTableDataChanged();
 	}
 
 	@Override
@@ -90,6 +90,5 @@ public class StockTableModel extends SalesSystemTableModel<StockItem>{
 
 		return buffer.toString();
 	}
-
 
 }
