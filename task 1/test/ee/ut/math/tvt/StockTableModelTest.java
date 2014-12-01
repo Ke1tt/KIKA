@@ -19,7 +19,7 @@ public class StockTableModelTest {
 	@Before
 	public void setUp() {
 		item1 = new StockItem((long) 1, "Porgand", "See on porgand", 2.30, 15);
-		item2 = new StockItem((long) 1, "Dipikaste", "See võib olla porgand", 3.0, 3);
+		item2 = new StockItem((long) 1, "Dipikaste", "See voib olla porgand", 3.0, 3);
 	}
 	
 	@Test (expected = VerificationFailedException.class)
@@ -43,5 +43,13 @@ public class StockTableModelTest {
 		StockTableModel model = new StockTableModel();
 		model.addItem(item1);
 		model.getItemById(9999);
+	}
+	
+	@Test
+	public void testGetColumnValue(){
+		assertEquals((long)1,item1.getColumn(0));
+		assertEquals("Porgand",item1.getColumn(1));
+		assertEquals(2.30,item1.getColumn(2));
+		assertEquals(15,item1.getColumn(3));
 	}
 }

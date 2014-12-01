@@ -25,6 +25,14 @@ public class PurchaseInfoTableModelTest {
 	}
 
 	@Test
+	public void testGetColumnValue(){
+		assertEquals((long)1,item1.getColumn(0));
+		assertEquals("Porgand",item1.getColumn(1));
+		assertEquals(2.30,item1.getColumn(2));
+		assertEquals(15,item1.getColumn(3));
+	}
+	
+	@Test
 	public void testHasEnoughInStock() {
 		PurchaseInfoTableModel model = new PurchaseInfoTableModel();
 		assertTrue(model.checkQuantity(item1, 5));
