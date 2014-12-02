@@ -66,4 +66,19 @@ public class PurchaseInfoTableModelTest {
 		model.addItem(sold2);
 		assertEquals(model.totalSum(), 16.6, 0.001);
 	}
+	
+	@Test
+	public void testItemInShopingCart(){
+		PurchaseInfoTableModel model = new PurchaseInfoTableModel();
+		model.addItem(sold);
+		assertEquals(model.itemInShoppingCart((long)1), sold);
+	}
+	
+	@Test
+	public void testItemNotInShopingCart(){
+		PurchaseInfoTableModel model = new PurchaseInfoTableModel();
+		model.addItem(sold);
+		assertEquals(model.itemInShoppingCart((long)4), null);
+	}
+	
 }
