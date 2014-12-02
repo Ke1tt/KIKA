@@ -2,7 +2,6 @@ package ee.ut.math.tvt.salessystem.ui.model;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
@@ -13,9 +12,7 @@ import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JButton;
